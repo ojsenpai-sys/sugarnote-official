@@ -42,6 +42,12 @@ const staggerContainer: Variants = {
   }
 };
 
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className={className} fill="currentColor">
+    <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+  </svg>
+);
+
 const members = [
   {
     id: "member_01",
@@ -51,7 +57,12 @@ const members = [
     origin: "東京都",
     mbti: "ISTP 巨匠",
     experience: "ダンス歴8年、ボーカル歴なし",
-    image: "/images/member_01.jpg"
+    image: "/images/member_01.jpg",
+    sns: {
+      tiktok: "https://www.tiktok.com/@sugarnote_hina",
+      instagram: "https://www.instagram.com/sugarnote_hina/",
+      x: "https://x.com/SugarNote_hina?s=20"
+    }
   },
   {
     id: "member_02",
@@ -61,7 +72,12 @@ const members = [
     origin: "富山県",
     mbti: "ESFP エンターテイナー",
     experience: "ダンス歴2年、ボーカル歴2年",
-    image: "/images/member_02.jpg"
+    image: "/images/member_02.jpg",
+    sns: {
+      tiktok: "https://www.tiktok.com/@sugarnote_airi",
+      instagram: "https://www.instagram.com/sugarnote_airi/",
+      x: "https://x.com/sugarnote_airi?s=20"
+    }
   },
   {
     id: "member_03",
@@ -71,7 +87,12 @@ const members = [
     origin: "富山県",
     mbti: "ESFP エンターテイナー",
     experience: "ダンス歴1年、ボーカル歴1年",
-    image: "/images/member_03.jpg"
+    image: "/images/member_03.jpg",
+    sns: {
+      tiktok: "https://www.tiktok.com/@sugarnote_ririho",
+      instagram: "https://www.instagram.com/sugarnote_ririho/",
+      x: "https://x.com/SugarNote_ririh?s=20"
+    }
   },
   {
     id: "member_04",
@@ -81,7 +102,12 @@ const members = [
     origin: "東京都",
     mbti: "INFP 仲介者",
     experience: "ダンス歴10年、ボーカル歴1年",
-    image: "/images/member_04.jpg"
+    image: "/images/member_04.jpg",
+    sns: {
+      tiktok: "https://www.tiktok.com/@sugarnote_nanako",
+      instagram: "https://www.instagram.com/sugarnote_nanako/",
+      x: "https://x.com/SugarNote_nana?s=20"
+    }
   },
   {
     id: "member_05",
@@ -91,9 +117,15 @@ const members = [
     origin: "東京都",
     mbti: "ESFP エンターテイナー",
     experience: "ダンス歴8年、ボーカル歴1年",
-    image: "/images/member_05.jpg"
+    image: "/images/member_05.jpg",
+    sns: {
+      tiktok: "https://www.tiktok.com/@sugarnote_fuka",
+      instagram: "https://www.instagram.com/sugarnote_fuka/",
+      x: "https://x.com/sugarnote_fuka?s=20"
+    }
   }
 ];
+
 
 const newsItems = [
   { date: "2026.03.06", category: "RELEASE", title: "3rdシングル「Pinky Promise」配信リリース決定！" },
@@ -377,12 +409,21 @@ export default function Home() {
                   </div>
                   
                   <div className="flex gap-3 justify-start mt-2">
-                    <a href="#" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
-                      <Instagram className="w-4 h-4" />
-                    </a>
-                    <a href="#" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
-                      <Twitter className="w-4 h-4" />
-                    </a>
+                    {member.sns?.tiktok && (
+                      <a href={member.sns.tiktok} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
+                        <TikTokIcon className="w-4 h-4" />
+                      </a>
+                    )}
+                    {member.sns?.instagram && (
+                      <a href={member.sns.instagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
+                        <Instagram className="w-4 h-4" />
+                      </a>
+                    )}
+                    {member.sns?.x && (
+                      <a href={member.sns.x} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
+                        <Twitter className="w-4 h-4" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </motion.div>

@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Avenir Next", "Avenir", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --color-pink-50: #FFF5F9;
+  --color-pink-100: #FCE7F3;
+  --color-pink-200: #FFD1DC;
+  --color-pink-300: #FDB6C9;
+  --color-pink-400: #FA92AE;
+  --color-pink-500: #F76894;
+  --color-pink-600: #EE3A71;
+}
+
 :root {
     --background: #ffffff;
     --foreground: #171717;
