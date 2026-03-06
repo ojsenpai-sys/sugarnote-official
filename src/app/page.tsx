@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Toaster, toast } from "react-hot-toast";
+import { submitContactForm } from "@/app/actions/contact";
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -101,11 +103,32 @@ const newsItems = [
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const formData = new FormData(e.currentTarget);
+    try {
+      const result = await submitContactForm(formData);
+      if (result.success) {
+        toast.success(result.message);
+        (e.target as HTMLFormElement).reset();
+      } else {
+        toast.error(result.message);
+      }
+    } catch {
+      toast.error("通信エラーが発生しました。");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-pink-100 text-slate-800 font-sans">
+      <Toaster position="top-center" />
       {/* Navigation */}
       <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-pink-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -470,33 +493,33 @@ export default function Home() {
             variants={fadeIn}
             className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl"
           >
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleContactSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">お名前 <span className="text-pink-500">*</span></label>
-                  <input type="text" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all" placeholder="山田 太郎" />
+                  <input type="text" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all" placeholder="山田 太郎" />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">メールアドレス <span className="text-pink-500">*</span></label>
-                  <input type="email" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all" placeholder="mail@example.com" />
+                  <input type="email" name="email" required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all" placeholder="mail@example.com" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">お問い合わせ種別 <span className="text-pink-500">*</span></label>
-                <select className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all appearance-none">
-                  <option>出演依頼</option>
-                  <option>取材・メディア関連</option>
-                  <option>ファンレター・プレゼントについて</option>
-                  <option>その他</option>
+                <select name="type" required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all appearance-none">
+                  <option value="出演依頼">出演依頼</option>
+                  <option value="取材・メディア関連">取材・メディア関連</option>
+                  <option value="ファンレター・プレゼントについて">ファンレター・プレゼントについて</option>
+                  <option value="その他">その他</option>
                 </select>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">お問い合わせ内容 <span className="text-pink-500">*</span></label>
-                <textarea rows={5} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all resize-none" placeholder="お問い合わせ内容をご入力ください"></textarea>
+                <textarea name="message" required rows={5} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all resize-none" placeholder="お問い合わせ内容をご入力ください"></textarea>
               </div>
               <div className="text-center pt-4">
-                <button type="button" className="px-12 py-4 bg-pink-500 hover:bg-pink-600 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-pink-500/30 w-full md:w-auto tracking-widest flex items-center justify-center gap-2 mx-auto">
-                  <MessageSquare className="w-5 h-5" /> 送信内容を確認する
+                <button type="submit" disabled={isSubmitting} className="px-12 py-4 bg-pink-500 hover:bg-pink-600 disabled:bg-pink-300 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-pink-500/30 w-full md:w-auto tracking-widest flex items-center justify-center gap-2 mx-auto disabled:hover:scale-100 disabled:cursor-not-allowed">
+                  <MessageSquare className="w-5 h-5" /> {isSubmitting ? "送信中..." : "送信内容を確認する"}
                 </button>
               </div>
             </form>
