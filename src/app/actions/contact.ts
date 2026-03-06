@@ -9,22 +9,35 @@ export async function submitContactForm(formData: FormData) {
   const type = formData.get("type") as string;
   const message = formData.get("message") as string;
 
+  console.log("--- サーバーアクション: お問い合わせ受信 ---");
+  console.log({ name, email, type, hasMessage: !!message });
+
   if (!name || !email || !type || !message) {
     return { success: false, message: "すべての項目を入力してください。" };
   }
 
   try {
-    // 1. Supabaseのcontactsテーブルに保存
-    const { error: dbError } = await supabase
-      .from("contacts")
-      .insert([{ name, email, type, message }]);
+    // 1. Supabaseのcontactsテーブルに保存 (失敗してもメール送信は継続する)
+    if (supabase) {
+      const { error: dbError } = await supabase
+        .from("contacts")
+        .insert([{ name, email, type, message }]);
 
-    if (dbError) {
-      console.error("Supabase Error:", dbError);
-      return { success: false, message: "データベースへの保存に失敗しました。" };
+      if (dbError) {
+        console.error("Supabase Error (警告: テーブルが見つかりません等のエラー。メール送信は続行します):", dbError);
+      } else {
+        console.log("Supabase への保存が成功しました。");
+      }
+    } else {
+      console.warn("Supabase への接続情報が不足しているため、DB保存をスキップします。");
     }
 
     // 2. Nodemailerでメール送信
+    if (!process.env.EMAIL_HOST || !process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error("メールサーバー（SMTP）の環境変数が設定されていません。");
+      return { success: false, message: "メールサーバーの設定が不足しているため送信できません。" };
+    }
+
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: 465,
@@ -33,6 +46,7 @@ export async function submitContactForm(formData: FormData) {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+      connectionTimeout: 10000, // 10秒でタイムアウトしてフリーズを防ぐ
     });
 
     const mailOptions = {
@@ -63,11 +77,13 @@ ${message}
       `,
     };
 
+    console.log("メールを送信します...");
     await transporter.sendMail(mailOptions);
+    console.log("メール送信完了！");
 
     return { success: true, message: "お問い合わせを送信しました。" };
   } catch (error) {
-    console.error("Contact Form Error:", error);
-    return { success: false, message: "メールの送信に失敗しました。" };
+    console.error("サーバーアクション 例外エラー:", error);
+    return { success: false, message: "サーバーエラーが発生しました。時間をおいてやり直してください。" };
   }
 }

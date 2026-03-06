@@ -109,26 +109,32 @@ export default function Home() {
 
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("[フロントエンド] 送信ボタンが押されました");
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
     try {
+      console.log("[フロントエンド] Server Action を呼び出します...");
       const result = await submitContactForm(formData);
+      console.log("[フロントエンド] Server Action レスポンス:", result);
+      
       if (result.success) {
         toast.success(result.message);
         (e.target as HTMLFormElement).reset();
       } else {
         toast.error(result.message);
       }
-    } catch {
-      toast.error("通信エラーが発生しました。");
+    } catch (err) {
+      console.error("[フロントエンド] 例外エラー発生:", err);
+      toast.error("サーバーとの通信エラーが発生しました。");
     } finally {
       setIsSubmitting(false);
+      console.log("[フロントエンド] 送信プロセス終了");
     }
   };
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-pink-100 text-slate-800 font-sans">
-      <Toaster position="top-center" />
+      <Toaster position="top-center" containerStyle={{ zIndex: 99999 }} />
       {/* Navigation */}
       <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-pink-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
