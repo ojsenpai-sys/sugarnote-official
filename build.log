@@ -1,0 +1,107 @@
+﻿
+> sugarnote_hp@1.0.0 build
+> next build
+
+笆ｲ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+node.exe : 
+発生場所 行:1 文字:1
++ & "C:\Program Files\
+nodejs/node.exe" "C:\P
+rogram Files\nodejs/no
+de_mo ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (:String) [   
+ ], RemoteExceptio    
+n
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+> Build error occurred
+Error: Turbopack build
+ failed with 2 errors:
+./src/app/layout.tsx
+Specified module forma
+t (CommonJs) is not ma
+tching the module form
+at of the source code 
+(EcmaScript Modules)
+The CommonJs module fo
+rmat was specified in 
+the package.json that 
+is affecting this sour
+ce file or by using an
+ special extension, bu
+t Ecmascript import/ex
+port syntax is used in
+ the source code.
+The module was automat
+ically converted to an
+ EcmaScript module, bu
+t that is in conflict 
+with the specified mod
+ule format. Either cha
+nge the "type" field i
+n the package.json or 
+replace EcmaScript imp
+ort/export syntax with
+ CommonJs syntas in th
+e source file.
+In some cases EcmaScri
+pt import/export synta
+x is added by an trans
+form and isn't actuall
+y part of the source c
+ode. In these cases re
+visit transformation o
+ptions to inject the c
+orrect syntax.
+
+
+./src/app/page.tsx
+Specified module forma
+t (CommonJs) is not ma
+tching the module form
+at of the source code 
+(EcmaScript Modules)
+The CommonJs module fo
+rmat was specified in 
+the package.json that 
+is affecting this sour
+ce file or by using an
+ special extension, bu
+t Ecmascript import/ex
+port syntax is used in
+ the source code.
+The module was automat
+ically converted to an
+ EcmaScript module, bu
+t that is in conflict 
+with the specified mod
+ule format. Either cha
+nge the "type" field i
+n the package.json or 
+replace EcmaScript imp
+ort/export syntax with
+ CommonJs syntas in th
+e source file.
+In some cases EcmaScri
+pt import/export synta
+x is added by an trans
+form and isn't actuall
+y part of the source c
+ode. In these cases re
+visit transformation o
+ptions to inject the c
+orrect syntax.
+
+
+    at ignore-listed f
+rames
