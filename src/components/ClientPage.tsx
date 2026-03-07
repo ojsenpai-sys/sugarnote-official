@@ -313,18 +313,20 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             variants={staggerContainer}
             className="space-y-4"
           >
-            {news.map((item, i) => (
-              <motion.div key={i} variants={fadeIn} className="group bg-white rounded-2xl p-6 shadow-[0_4px_20px_-10px_rgba(236,72,153,0.15)] hover:shadow-[0_8px_30px_-10px_rgba(236,72,153,0.2)] transition-all border border-pink-100/50 cursor-pointer flex flex-col md:flex-row gap-4 md:items-center">
-                <div className="flex items-center gap-3 md:w-48 shrink-0">
-                  <span className="text-slate-500 font-medium text-sm">{item.published_on}</span>
-                  <span className="px-3 py-1 bg-pink-100 text-pink-600 text-[10px] font-black tracking-wider rounded-full">{item.category}</span>
-                </div>
-                <p className="font-bold text-slate-800 lg:text-lg group-hover:text-pink-500 transition-colors flex-grow">
-                  {item.title}
-                </p>
-                <div className="hidden md:block">
-                  <ChevronRight className="w-5 h-5 text-pink-300 group-hover:text-pink-500 transition-colors group-hover:translate-x-1" />
-                </div>
+            {news.map((item) => (
+              <motion.div key={item.id} variants={fadeIn}>
+                <Link href={`/information/${item.id}`} className="block group bg-white rounded-2xl p-6 shadow-[0_4px_20px_-10px_rgba(236,72,153,0.15)] hover:shadow-[0_8px_30px_-10px_rgba(236,72,153,0.2)] transition-all border border-pink-100/50 cursor-pointer flex flex-col md:flex-row gap-4 md:items-center">
+                  <div className="flex items-center gap-3 md:w-48 shrink-0">
+                    <span className="text-slate-500 font-medium text-sm">{item.published_on}</span>
+                    <span className="px-3 py-1 bg-pink-100 text-pink-600 text-[10px] font-black tracking-wider rounded-full">{item.category || "NEWS"}</span>
+                  </div>
+                  <p className="font-bold text-slate-800 lg:text-lg group-hover:text-pink-500 transition-colors flex-grow">
+                    {item.title}
+                  </p>
+                  <div className="hidden md:block">
+                    <ChevronRight className="w-5 h-5 text-pink-300 group-hover:text-pink-500 transition-colors group-hover:translate-x-1" />
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>

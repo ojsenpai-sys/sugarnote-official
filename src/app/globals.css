@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-sans: "Avenir Next", "Avenir", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
