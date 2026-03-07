@@ -16,7 +16,7 @@ export default async function Page() {
   try {
     const results = await Promise.all([
       supabase.from("site_settings").select("*").eq("id", 1).single(),
-      supabase.from("news").select("*").order("published_on", { ascending: false }).limit(5),
+      supabase.from("news").select("*").eq("status", "published").lte("published_at", new Date().toISOString()).order("published_at", { ascending: false }).limit(5),
       supabase.from("discography").select("*").order("release_date", { ascending: false }).limit(4),
       supabase.from("goods").select("*").order("created_at", { ascending: false }).limit(4),
       supabase.from("videos").select("*").order("created_at", { ascending: false }).limit(1),

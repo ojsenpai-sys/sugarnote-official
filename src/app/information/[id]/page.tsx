@@ -17,6 +17,8 @@ export default async function InformationDetailPage({ params }: { params: Promis
       .from("news")
       .select("*")
       .eq("id", id)
+      .eq("status", "published")
+      .lte("published_at", new Date().toISOString())
       .single();
 
     if (error) {

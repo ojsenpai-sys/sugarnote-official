@@ -18,6 +18,8 @@ export default function NewsAdmin() {
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [publishedOn, setPublishedOn] = useState("");
+  const [status, setStatus] = useState("published");
+  const [publishedAt, setPublishedAt] = useState("");
   const [saving, setSaving] = useState(false);
 
   const supabase = createClient();
@@ -40,17 +42,34 @@ export default function NewsAdmin() {
     if (item) {
       setEditingId(item.id);
       setTitle(item.title);
-      setCategory(item.category);
+      setCategory(item.category || "NEWS");
       setContent(item.content || "");
       setImageUrl(item.image_url || "");
-      setPublishedOn(item.published_on);
+      setPublishedOn(item.published_on || "");
+      setStatus(item.status || "published");
+      
+      let dateObj = new Date();
+      if (item.published_at) {
+        dateObj = new Date(item.published_at);
+      } else if (item.published_on) {
+        dateObj = new Date(item.published_on);
+      }
+      const offset = dateObj.getTimezoneOffset() * 60000;
+      const localISOTime = (new Date(dateObj.getTime() - offset)).toISOString().slice(0, 16);
+      setPublishedAt(localISOTime);
     } else {
       setEditingId("new");
       setTitle("");
       setCategory("NEWS");
       setContent("");
       setImageUrl("");
-      setPublishedOn(new Date().toISOString().split("T")[0]);
+      setStatus("draft");
+      
+      const now = new Date();
+      const offset = now.getTimezoneOffset() * 60000;
+      const localISOTime = (new Date(now.getTime() - offset)).toISOString().slice(0, 16);
+      setPublishedAt(localISOTime);
+      setPublishedOn(localISOTime.split("T")[0]);
     }
   };
 
@@ -62,12 +81,15 @@ export default function NewsAdmin() {
     e.preventDefault();
     setSaving(true);
 
+    const utcDate = new Date(publishedAt).toISOString();
     const payload = {
       title,
       category,
       content,
       image_url: imageUrl,
-      published_on: publishedOn,
+      published_on: publishedAt.split("T")[0],
+      published_at: utcDate,
+      status,
     };
 
     let error;
@@ -124,25 +146,30 @@ export default function NewsAdmin() {
           </div>
           
           <form onSubmit={handleSave} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-3">
                 <label className="block text-sm font-bold text-slate-700 mb-2">タイトル</label>
                 <input type="text" value={title} onChange={e => setTitle(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">カテゴリ</label>
-                  <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
-                    <option value="NEWS">NEWS</option>
-                    <option value="RELEASE">RELEASE</option>
-                    <option value="LIVE">LIVE</option>
-                    <option value="MEDIA">MEDIA</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">公開日</label>
-                  <input type="date" value={publishedOn} onChange={e => setPublishedOn(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
-                </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">カテゴリ</label>
+                <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                  <option value="NEWS">NEWS</option>
+                  <option value="RELEASE">RELEASE</option>
+                  <option value="LIVE">LIVE</option>
+                  <option value="MEDIA">MEDIA</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">ステータス</label>
+                <select value={status} onChange={e => setStatus(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                  <option value="published">公開</option>
+                  <option value="draft">下書き</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">公開日時</label>
+                <input type="datetime-local" value={publishedAt} onChange={e => setPublishedAt(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
               </div>
             </div>
 
@@ -185,8 +212,15 @@ export default function NewsAdmin() {
                 <tbody>
                   {news.map((item) => (
                     <tr key={item.id} className="border-b border-slate-50 last:border-none hover:bg-slate-50/50 transition-colors">
-                      <td className="p-4 text-slate-600 font-medium">{item.published_on}</td>
-                      <td className="p-4"><span className="px-3 py-1 bg-pink-100 text-pink-600 text-xs font-bold rounded-full">{item.category}</span></td>
+                      <td className="p-4 text-slate-600 font-medium whitespace-nowrap">
+                        {item.published_at ? new Date(item.published_at).toLocaleString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' }) : item.published_on}
+                      </td>
+                      <td className="p-4">
+                        <div className="flex gap-2 items-center">
+                          <span className="px-3 py-1 bg-pink-100 text-pink-600 text-xs font-bold rounded-full">{item.category}</span>
+                          {item.status === 'draft' && <span className="px-3 py-1 bg-slate-100 text-slate-500 text-xs font-bold rounded-full">下書き</span>}
+                        </div>
+                      </td>
                       <td className="p-4 text-slate-800 font-bold">{item.title}</td>
                       <td className="p-4 text-right flex justify-end gap-2">
                         <button onClick={() => openForm(item)} className="p-2 text-slate-400 hover:text-pink-500 hover:bg-pink-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
