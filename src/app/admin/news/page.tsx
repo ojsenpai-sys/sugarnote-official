@@ -1,0 +1,205 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { Plus, Edit2, Trash2, X, Check } from "lucide-react";
+import RichTextEditor from "@/components/admin/RichTextEditor";
+import ImageUpload from "@/components/admin/ImageUpload";
+import { Toaster, toast } from "react-hot-toast";
+
+export default function NewsAdmin() {
+  const [news, setNews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  
+  // Form State
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("NEWS");
+  const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [publishedOn, setPublishedOn] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    fetchNews();
+  }, [supabase]);
+
+  const fetchNews = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("news")
+      .select("*")
+      .order("published_on", { ascending: false });
+    if (data) setNews(data);
+    setLoading(false);
+  };
+
+  const openForm = (item?: any) => {
+    if (item) {
+      setEditingId(item.id);
+      setTitle(item.title);
+      setCategory(item.category);
+      setContent(item.content || "");
+      setImageUrl(item.image_url || "");
+      setPublishedOn(item.published_on);
+    } else {
+      setEditingId("new");
+      setTitle("");
+      setCategory("NEWS");
+      setContent("");
+      setImageUrl("");
+      setPublishedOn(new Date().toISOString().split("T")[0]);
+    }
+  };
+
+  const closeForm = () => {
+    setEditingId(null);
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+
+    const payload = {
+      title,
+      category,
+      content,
+      image_url: imageUrl,
+      published_on: publishedOn,
+    };
+
+    let error;
+    if (editingId === "new") {
+      const res = await supabase.from("news").insert([payload]);
+      error = res.error;
+    } else {
+      const res = await supabase.from("news").update(payload).eq("id", editingId);
+      error = res.error;
+    }
+
+    if (error) {
+      toast.error("保存に失敗しました：" + error.message);
+    } else {
+      toast.success("ニュースを保存しました！");
+      closeForm();
+      fetchNews();
+    }
+    setSaving(false);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("本当に削除しますか？")) return;
+    const { error } = await supabase.from("news").delete().eq("id", id);
+    if (error) {
+      toast.error("削除に失敗しました：" + error.message);
+    } else {
+      toast.success("削除しました。");
+      fetchNews();
+    }
+  };
+
+  return (
+    <>
+      <Toaster position="top-center" />
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-bold text-slate-800">ニュース管理</h1>
+        {editingId === null && (
+          <button
+            onClick={() => openForm()}
+            className="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-xl font-bold transition-all"
+          >
+            <Plus className="w-5 h-5" />
+            新規追加
+          </button>
+        )}
+      </div>
+
+      {editingId !== null ? (
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+          <div className="flex items-center justify-between mb-6 border-b border-pink-100 pb-4">
+            <h2 className="text-xl font-bold text-slate-800">{editingId === "new" ? "新規ニュース作成" : "ニュース編集"}</h2>
+            <button onClick={closeForm} className="text-slate-400 hover:text-slate-600 p-2"><X className="w-6 h-6" /></button>
+          </div>
+          
+          <form onSubmit={handleSave} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">タイトル</label>
+                <input type="text" value={title} onChange={e => setTitle(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">カテゴリ</label>
+                  <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    <option value="NEWS">NEWS</option>
+                    <option value="RELEASE">RELEASE</option>
+                    <option value="LIVE">LIVE</option>
+                    <option value="MEDIA">MEDIA</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">公開日</label>
+                  <input type="date" value={publishedOn} onChange={e => setPublishedOn(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">アイキャッチ画像（任意）</label>
+              <ImageUpload value={imageUrl} onChange={setImageUrl} folder="news" />
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">本文</label>
+              <RichTextEditor value={content} onChange={setContent} />
+            </div>
+
+            <div className="flex justify-end gap-4 pt-6 border-t border-slate-100">
+              <button type="button" onClick={closeForm} className="px-6 py-3 text-slate-500 font-bold hover:bg-slate-100 rounded-xl transition-colors">キャンセル</button>
+              <button type="submit" disabled={saving} className="flex items-center gap-2 px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-xl transition-all disabled:opacity-50">
+                <Check className="w-5 h-5" />
+                {saving ? "保存中..." : "保存する"}
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : (
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+          {loading ? (
+            <div className="p-8 text-center text-slate-500">読み込み中...</div>
+          ) : news.length === 0 ? (
+            <div className="p-8 text-center text-slate-500">ニュースがありません。</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-max">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-100">
+                    <th className="p-4 text-sm font-bold text-slate-500 w-32">公開日</th>
+                    <th className="p-4 text-sm font-bold text-slate-500 w-32">カテゴリ</th>
+                    <th className="p-4 text-sm font-bold text-slate-500">タイトル</th>
+                    <th className="p-4 text-sm font-bold text-slate-500 text-right w-32">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {news.map((item) => (
+                    <tr key={item.id} className="border-b border-slate-50 last:border-none hover:bg-slate-50/50 transition-colors">
+                      <td className="p-4 text-slate-600 font-medium">{item.published_on}</td>
+                      <td className="p-4"><span className="px-3 py-1 bg-pink-100 text-pink-600 text-xs font-bold rounded-full">{item.category}</span></td>
+                      <td className="p-4 text-slate-800 font-bold">{item.title}</td>
+                      <td className="p-4 text-right flex justify-end gap-2">
+                        <button onClick={() => openForm(item)} className="p-2 text-slate-400 hover:text-pink-500 hover:bg-pink-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
+                        <button onClick={() => handleDelete(item.id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+}

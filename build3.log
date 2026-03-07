@@ -1,0 +1,94 @@
+﻿
+> sugarnote_hp@1.0.0 build
+> next build
+
+笆ｲ Next.js 16.1.6 (Turbopack)
+
+node.exe : 笞 The "mid
+dleware" file conventi
+on is deprecated. Plea
+se use "proxy" instead
+. Learn more: https://
+nextjs.org/docs/messag
+es/middleware-to-proxy
+発生場所 行:1 文字:1
++ & "C:\Program Files\
+nodejs/node.exe" "C:\P
+rogram Files\nodejs/no
+de_mo ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (笞 The "mi   
+ ddlew...leware-to    
+-proxy:String) []    ,
+ RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+  Creating an optimized production build ...
+笨・Compiled successfully in 7.1s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/11) ...
+笞 metadataBase proper
+ty in metadata export 
+is not set for resolvi
+ng social open graph o
+r twitter images, usin
+g "http://localhost:30
+00". See https://nextj
+s.org/docs/app/api-ref
+erence/functions/gener
+ate-metadata#metadatab
+ase
+Error occurred prerend
+ering page "/admin/dis
+cography". Read more: 
+https://nextjs.org/doc
+s/messages/prerender-e
+rror
+Error: @supabase/ssr: 
+Your project's URL and
+ API key are required 
+to create a Supabase c
+lient!
+
+Check your Supabase pr
+oject's API settings t
+o find these values
+
+https://supabase.com/d
+ashboard/project/_/set
+tings/api
+    at <unknown> (http
+s://supabase.com/dashb
+oard/project/_/setting
+s/api)
+    at <unknown> (C:\S
+ugarNote_HP\.next\serv
+er\chunks\ssr\_4d226d5
+6._.js:55:63)
+    at cs (C:\SugarNot
+e_HP\.next\server\chun
+ks\ssr\_4d226d56._.js:
+59:4544)
+    at n (C:\SugarNote
+_HP\.next\server\chunk
+s\ssr\[root-of-the-ser
+ver]__bea2a4ef._.js:1:
+5861) {
+  digest: '3991672553'
+}
+Export encountered an 
+error on /admin/discog
+raphy/page: /admin/dis
+cography, exiting the 
+build.
+筧ｯ Next.js build worke
+r exited with code: 1 
+and signal: null
