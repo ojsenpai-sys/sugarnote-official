@@ -11,13 +11,24 @@ export default async function InformationDetailPage({ params }: { params: Promis
   const { id } = await params;
   const supabase = await createClient();
 
-  const { data: newsItem, error } = await supabase
-    .from("news")
-    .select("*")
-    .eq("id", id)
-    .single();
+  let newsItem = null;
+  try {
+    const { data, error } = await supabase
+      .from("news")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-  if (error || !newsItem) {
+    if (error) {
+      console.error("Supabase Error:", error);
+    } else {
+      newsItem = data;
+    }
+  } catch (err) {
+    console.error("Fetch exception in InformationDetailPage:", err);
+  }
+
+  if (!newsItem) {
     notFound();
   }
 
