@@ -70,8 +70,8 @@ export default async function InformationDetailPage({ params }: { params: Promis
         </Link>
         
         <article className="bg-white rounded-3xl p-6 md:p-12 shadow-[0_8px_30px_-10px_rgba(236,72,153,0.15)] border border-pink-100">
-          <header className="mb-10 text-center md:text-left">
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-6">
+          <header className="mb-8 text-center md:text-left">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-4">
               <div className="flex items-center gap-2 text-slate-500 font-bold">
                 <Calendar className="w-4 h-4 text-pink-400" />
                 <span>{newsItem.published_on}</span>
@@ -83,7 +83,7 @@ export default async function InformationDetailPage({ params }: { params: Promis
                 </div>
               )}
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-800 leading-tight tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-semibold text-pink-400 leading-relaxed tracking-normal font-sans">
               {newsItem.title}
             </h1>
           </header>
