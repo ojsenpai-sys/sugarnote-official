@@ -51,6 +51,21 @@ export const metadata: Metadata = {
   },
 };
 
+import { Montserrat, Noto_Sans_JP } from "next/font/google";
+
+const montserrat = Montserrat({ 
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-noto-sans-jp",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -58,7 +73,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className="antialiased min-h-screen font-sans">{children}</body>
+      <body className={`${montserrat.variable} ${notoSansJP.variable} antialiased min-h-screen font-sans`}>
+        {children}
+      </body>
     </html>
   );
 }

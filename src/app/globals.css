@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "Avenir Next", "Avenir", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --font-sans: var(--font-montserrat), var(--font-noto-sans-jp), sans-serif;
   --color-pink-50: #FFF5F9;
   --color-pink-100: #FCE7F3;
   --color-pink-200: #FFD1DC;
