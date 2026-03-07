@@ -185,7 +185,7 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
                   }}
                 />
               </div>
-              <span className="font-extrabold text-2xl tracking-tighter text-pink-500 hidden sm:block">SugarNote</span>
+              <span className="font-extrabold text-xl sm:text-2xl tracking-tighter text-pink-500">SugarNote</span>
             </Link>
 
             {/* Desktop Menu */}
@@ -251,10 +251,10 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
           variants={fadeIn}
           className="relative z-10 text-center px-4 mt-32 md:mt-0"
         >
-          <h1 className="text-6xl md:text-8xl font-black text-white drop-shadow-lg tracking-tighter mb-4">
+          <h1 className="text-5xl md:text-8xl font-semibold font-sans text-white drop-shadow-lg tracking-normal md:tracking-tighter mb-4">
             SugarNote
           </h1>
-          <p className="text-xl md:text-3xl font-bold text-white drop-shadow-md tracking-widest">
+          <p className="text-lg md:text-3xl font-medium font-sans text-white drop-shadow-md tracking-wider md:tracking-widest">
             Pure. Bright. Unstoppable.
           </p>
         </motion.div>
@@ -290,10 +290,10 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
           <div className="inline-block p-1 bg-gradient-to-r from-pink-300 to-rose-300 rounded-full mb-8">
             <Star className="w-8 h-8 text-white fill-white p-1" />
           </div>
-          <h2 className="text-2xl md:text-4xl font-bold text-pink-500 mb-8 leading-relaxed tracking-wide">
+          <h2 className="text-xl md:text-4xl font-semibold font-sans text-pink-500 mb-8 leading-relaxed tracking-wide">
             Pure. Bright. Unstoppable.
           </h2>
-          <p className="text-lg md:text-2xl text-slate-700 leading-loose font-medium px-4">
+          <p className="text-base md:text-2xl text-slate-700 leading-loose font-medium font-sans px-4">
             ピュアが、世界を動かす。<br className="hidden md:block"/>
             日本人の持つ精神性を主軸にしたクリエイティブを発信していくアイドルグループ。
           </p>
