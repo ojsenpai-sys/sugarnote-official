@@ -3,13 +3,14 @@
 
 @theme {
   --font-sans: var(--font-montserrat), var(--font-noto-sans-jp), sans-serif;
-  --color-pink-50: #FFF5F9;
-  --color-pink-100: #FCE7F3;
-  --color-pink-200: #FFD1DC;
-  --color-pink-300: #FDB6C9;
-  --color-pink-400: #FA92AE;
-  --color-pink-500: #F76894;
-  --color-pink-600: #EE3A71;
+  
+  --color-primary-50: var(--theme-background);
+  --color-primary-100: var(--theme-surface-muted);
+  --color-primary-200: #FFD1DC; /* Soft intermediate */
+  --color-primary-300: #FDB6C9; /* Soft intermediate */
+  --color-primary-400: var(--theme-secondary);
+  --color-primary-500: var(--theme-primary);
+  --color-primary-600: var(--theme-accent);
 }
 
 :root {

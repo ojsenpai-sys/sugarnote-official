@@ -2,6 +2,7 @@
 
 import nodemailer from "nodemailer";
 import { supabase } from "@/lib/supabase";
+import { siteConfig } from "@/config/site";
 
 export async function submitContactForm(formData: FormData) {
   const name = formData.get("name") as string;
@@ -50,11 +51,11 @@ export async function submitContactForm(formData: FormData) {
     });
 
     const mailOptions = {
-      from: `"SugarNote Official" <${process.env.EMAIL_USER}>`,
+      from: `"${siteConfig.name} Official" <${process.env.EMAIL_USER}>`,
       to: "info@sugarnote.jp",
-      subject: `【SugarNote】HPよりお問い合わせ: ${type}`,
+      subject: `【${siteConfig.name}】HPよりお問い合わせ: ${type}`,
       text: `
-SugarNote公式サイトから新しいお問い合わせがありました。
+${siteConfig.name}公式サイトから新しいお問い合わせがありました。
 
 【お名前】
 ${name}
@@ -69,7 +70,7 @@ ${type}
 ${message}
       `,
       html: `
-        <h3>SugarNote公式サイトから新しいお問い合わせがありました。</h3>
+        <h3>{siteConfig.name}公式サイトから新しいお問い合わせがありました。</h3>
         <p><strong>【お名前】</strong><br/>${name}</p>
         <p><strong>【メールアドレス】</strong><br/>${email}</p>
         <p><strong>【お問い合わせ種別】</strong><br/>${type}</p>

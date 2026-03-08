@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LayoutDashboard, FileText, Disc, ShoppingBag, Video, Settings, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { siteConfig } from "@/config/site";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -35,7 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Sidebar */}
       <aside className="w-64 bg-slate-900 text-white flex flex-col">
         <div className="p-6">
-          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-pink-200">
+          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-200">
             SugarNote CMS
           </h1>
         </div>
@@ -48,7 +49,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 key={item.href}
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
-                  isActive ? "bg-pink-500 text-white" : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                  isActive ? "bg-primary-500 text-white" : "text-slate-400 hover:bg-slate-800 hover:text-white"
                 }`}
               >
                 <Icon className="w-5 h-5" />

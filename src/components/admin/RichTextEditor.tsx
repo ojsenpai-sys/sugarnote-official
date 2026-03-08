@@ -77,7 +77,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
       onClick={onClick}
       disabled={disabled}
       className={`p-2 rounded-lg transition-colors ${
-        isActive ? 'bg-pink-100 text-pink-600' : 'text-slate-600 hover:bg-slate-100'
+        isActive ? 'bg-primary-100 text-primary-600' : 'text-slate-600 hover:bg-slate-100'
       } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
     >
       <Icon className="w-4 h-4" />

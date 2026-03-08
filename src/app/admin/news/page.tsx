@@ -130,7 +130,7 @@ export default function NewsAdmin() {
         {editingId === null && (
           <button
             onClick={() => openForm()}
-            className="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-xl font-bold transition-all"
+            className="flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-bold transition-all"
           >
             <Plus className="w-5 h-5" />
             新規追加
@@ -140,7 +140,7 @@ export default function NewsAdmin() {
 
       {editingId !== null ? (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-          <div className="flex items-center justify-between mb-6 border-b border-pink-100 pb-4">
+          <div className="flex items-center justify-between mb-6 border-b border-primary-100 pb-4">
             <h2 className="text-xl font-bold text-slate-800">{editingId === "new" ? "新規ニュース作成" : "ニュース編集"}</h2>
             <button onClick={closeForm} className="text-slate-400 hover:text-slate-600 p-2"><X className="w-6 h-6" /></button>
           </div>
@@ -149,11 +149,11 @@ export default function NewsAdmin() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="md:col-span-3">
                 <label className="block text-sm font-bold text-slate-700 mb-2">タイトル</label>
-                <input type="text" value={title} onChange={e => setTitle(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+                <input type="text" value={title} onChange={e => setTitle(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">カテゴリ</label>
-                <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500">
                   <option value="NEWS">NEWS</option>
                   <option value="RELEASE">RELEASE</option>
                   <option value="LIVE">LIVE</option>
@@ -162,14 +162,14 @@ export default function NewsAdmin() {
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">ステータス</label>
-                <select value={status} onChange={e => setStatus(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <select value={status} onChange={e => setStatus(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500">
                   <option value="published">公開</option>
                   <option value="draft">下書き</option>
                 </select>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">公開日時</label>
-                <input type="datetime-local" value={publishedAt} onChange={e => setPublishedAt(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+                <input type="datetime-local" value={publishedAt} onChange={e => setPublishedAt(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
               </div>
             </div>
 
@@ -185,7 +185,7 @@ export default function NewsAdmin() {
 
             <div className="flex justify-end gap-4 pt-6 border-t border-slate-100">
               <button type="button" onClick={closeForm} className="px-6 py-3 text-slate-500 font-bold hover:bg-slate-100 rounded-xl transition-colors">キャンセル</button>
-              <button type="submit" disabled={saving} className="flex items-center gap-2 px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-xl transition-all disabled:opacity-50">
+              <button type="submit" disabled={saving} className="flex items-center gap-2 px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-xl transition-all disabled:opacity-50">
                 <Check className="w-5 h-5" />
                 {saving ? "保存中..." : "保存する"}
               </button>
@@ -217,13 +217,13 @@ export default function NewsAdmin() {
                       </td>
                       <td className="p-4">
                         <div className="flex gap-2 items-center">
-                          <span className="px-3 py-1 bg-pink-100 text-pink-600 text-xs font-bold rounded-full">{item.category}</span>
+                          <span className="px-3 py-1 bg-primary-100 text-primary-600 text-xs font-bold rounded-full">{item.category}</span>
                           {item.status === 'draft' && <span className="px-3 py-1 bg-slate-100 text-slate-500 text-xs font-bold rounded-full">下書き</span>}
                         </div>
                       </td>
                       <td className="p-4 text-slate-800 font-bold">{item.title}</td>
                       <td className="p-4 text-right flex justify-end gap-2">
-                        <button onClick={() => openForm(item)} className="p-2 text-slate-400 hover:text-pink-500 hover:bg-pink-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
+                        <button onClick={() => openForm(item)} className="p-2 text-slate-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
                         <button onClick={() => handleDelete(item.id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
                       </td>
                     </tr>

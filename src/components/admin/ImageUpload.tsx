@@ -63,9 +63,9 @@ export default function ImageUpload({ value, onChange, bucket = "images", folder
           </button>
         </div>
       ) : (
-        <div className="relative w-48 h-48 rounded-xl border-2 border-dashed border-slate-300 hover:border-pink-500 bg-slate-50 flex flex-col items-center justify-center transition-colors">
+        <div className="relative w-48 h-48 rounded-xl border-2 border-dashed border-slate-300 hover:border-primary-500 bg-slate-50 flex flex-col items-center justify-center transition-colors">
           {uploading ? (
-            <Loader2 className="w-8 h-8 text-pink-500 animate-spin" />
+            <Loader2 className="w-8 h-8 text-primary-500 animate-spin" />
           ) : (
             <>
               <UploadCloud className="w-8 h-8 text-slate-400 mb-2" />

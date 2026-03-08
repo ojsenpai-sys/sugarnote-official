@@ -1,37 +1,36 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "SugarNote Official Website",
-    template: "%s | SugarNote Official",
+    default: `${siteConfig.name} Official Website`,
+    template: `%s | ${siteConfig.name} Official`,
   },
-  description: "「Pure. Bright. Unstoppable.」日本人の精神性を主軸に、緻密で繊細なクリエイティブを展開するアイドルグループSugarNote（シュガーノート）のオフィシャルサイト。",
-  keywords: ["SugarNote", "シュガーノート", "アイドル", "オフィシャルサイト", "坂東ひなた", "西条藍里", "白咲里莉穂", "櫻井那奈子", "坂東楓夏"],
-  authors: [
-    { name: "SugarNote Management" },
-    { name: "ANCHOR (Music Production)" },
-    { name: "中村泰輔 (Music Production)" },
-    { name: "LINDO (Visual Direction)" }
-  ],
-  creator: "SugarNote Project",
-  publisher: "SugarNote Publisher",
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: siteConfig.credits.music.map((m) => ({ name: `${m} (Music Production)` })).concat(
+    { name: siteConfig.credits.management },
+    { name: `${siteConfig.credits.visual} (Visual Direction)` }
+  ),
+  creator: `${siteConfig.name} Project`,
+  publisher: `${siteConfig.name} Publisher`,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: "SugarNote Official Website",
-    description: "「Pure. Bright. Unstoppable.」日本人の精神性を主軸に、緻密で繊細なクリエイティブを展開するアイドルグループ。",
-    url: "https://sugarnote.jp",
-    siteName: "SugarNote Official",
+    title: `${siteConfig.name} Official Website`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: `${siteConfig.name} Official`,
     images: [
       {
         url: "/images/group_main.jpg",
         width: 1200,
         height: 630,
-        alt: "SugarNote Main Visual",
+        alt: `${siteConfig.name} Main Visual`,
       },
     ],
     locale: "ja_JP",
@@ -39,10 +38,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SugarNote Official Website",
-    description: "「Pure. Bright. Unstoppable.」日本人の精神性を主軸に、緻密で繊細なクリエイティブを展開するアイドルグループ。",
+    title: `${siteConfig.name} Official Website`,
+    description: siteConfig.description,
     images: ["/images/group_main.jpg"],
-    creator: "@SugarNote_Info", // Dummy ID
+    creator: siteConfig.links.twitter ? `@${siteConfig.links.twitter.split('/').pop()}` : undefined,
   },
   icons: {
     icon: "/icon.png",
@@ -71,9 +70,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Inject the theme colors as CSS variables dynamically from siteConfig
+  const themeStyles = {
+    "--theme-primary": siteConfig.themeColor.primary,
+    "--theme-secondary": siteConfig.themeColor.secondary,
+    "--theme-accent": siteConfig.themeColor.accent,
+    "--theme-background": siteConfig.themeColor.background,
+    "--theme-surface": siteConfig.themeColor.surface,
+    "--theme-surface-muted": siteConfig.themeColor.surfaceMuted,
+  } as React.CSSProperties;
+
   return (
     <html lang="ja">
-      <body className={`${montserrat.variable} ${notoSansJP.variable} antialiased min-h-screen font-sans`}>
+      <body 
+        className={`${montserrat.variable} ${notoSansJP.variable} antialiased min-h-screen font-sans`}
+        style={themeStyles}
+      >
         {children}
       </body>
     </html>

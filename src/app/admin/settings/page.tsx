@@ -55,7 +55,7 @@ export default function SettingsAdmin() {
         <button
           onClick={saveSettings}
           disabled={saving}
-          className="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-xl font-bold transition-all disabled:opacity-50"
+          className="flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-bold transition-all disabled:opacity-50"
         >
           <Save className="w-5 h-5" />
           {saving ? "保存中..." : "保存する"}
@@ -64,19 +64,19 @@ export default function SettingsAdmin() {
 
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 space-y-10">
         <div>
-          <h2 className="text-lg font-bold text-slate-800 mb-4 border-b border-pink-100 pb-2">トップ画像（Hero Visual）</h2>
+          <h2 className="text-lg font-bold text-slate-800 mb-4 border-b border-primary-100 pb-2">トップ画像（Hero Visual）</h2>
           <p className="text-sm text-slate-500 mb-6">サイトのトップページに全画面で表示されるメインビジュアルです。推奨サイズは横長（1920x1080など）です。</p>
           <ImageUpload value={heroImage} onChange={setHeroImage} folder="settings" />
         </div>
 
         <div>
-           <h2 className="text-lg font-bold text-slate-800 mb-4 border-b border-pink-100 pb-2">Google カレンダー ID</h2>
+           <h2 className="text-lg font-bold text-slate-800 mb-4 border-b border-primary-100 pb-2">Google カレンダー ID</h2>
            <p className="text-sm text-slate-500 mb-4">SCHEDULE セクションの埋め込みに使用する Google カレンダー専用の ID です。（例: <code>your-id@group.calendar.google.com</code>）</p>
            <input
              type="text"
              value={calendarId}
              onChange={(e) => setCalendarId(e.target.value)}
-             className="w-full max-w-xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
+             className="w-full max-w-xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500"
              placeholder="xxx@group.calendar.google.com"
            />
         </div>
