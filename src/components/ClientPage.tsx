@@ -249,20 +249,17 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
           initial="hidden"
           animate="visible"
           variants={fadeIn}
-          className="relative z-10 text-center px-4 mt-32 md:mt-0 w-full max-w-4xl mx-auto"
+          className="relative z-10 text-center px-4 w-full max-w-5xl mx-auto -mt-24 sm:-mt-32 md:-mt-48"
         >
-          <div className="relative w-[300px] sm:w-[500px] md:w-[700px] mx-auto mb-6 md:mb-10 aspect-[3/1]">
+          <div className="relative w-[360px] sm:w-[600px] md:w-[900px] mx-auto aspect-[3/1]">
             <Image
               src="/images/logo_ribbon.png"
               alt="SugarNote Logo"
               fill
-              className="object-contain drop-shadow-xl"
+              className="object-contain drop-shadow-2xl"
               priority
             />
           </div>
-          <p className="text-lg md:text-3xl font-medium font-sans text-white drop-shadow-md tracking-wider md:tracking-widest">
-            Pure. Bright. Unstoppable.
-          </p>
         </motion.div>
         
         {/* Scroll Indicator */}
@@ -356,7 +353,7 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
           >
             <div className="aspect-video w-full bg-slate-50 rounded-2xl overflow-hidden border border-pink-100 relative">
               <iframe 
-                src="https://timetr.ee/p/sugarnote_ofc" 
+                src="https://timetreeapp.com/public_calendars/sugarnote_ofc/widget" 
                 style={{border: 0}} 
                 width="100%" 
                 height="100%" 
