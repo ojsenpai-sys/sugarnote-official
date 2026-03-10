@@ -1,0 +1,108 @@
+{
+  "Navigation": {
+    "information": "INFORMATION",
+    "schedule": "SCHEDULE",
+    "profile": "PROFILE",
+    "video": "VIDEO",
+    "discography": "DISCOGRAPHY",
+    "goods": "GOODS",
+    "contact": "CONTACT"
+  },
+  "Hero": {
+    "catchphrase": "Pure. Bright. Unstoppable."
+  },
+  "Concept": {
+    "catchphrase": "Pure. Bright. Unstoppable.",
+    "lead": "ピュアが、世界を動かす。",
+    "description": "日本人の持つ精神性を主軸にしたクリエイティブを発信していくアイドルグループ。"
+  },
+  "Sections": {
+    "informationSubtitle": "最新情報",
+    "viewAllInformation": "View All Information",
+    "scheduleSubtitle": "スケジュール",
+    "googleCalendarMissing": "カレンダーが未設定です",
+    "profileSubtitle": "メンバープロフィール",
+    "videoSubtitle": "ミュージックビデオ",
+    "discographySubtitle": "リリース情報",
+    "goodsSubtitle": "公式グッズ",
+    "contactSubtitle": "お問い合わせ"
+  },
+  "Footer": {
+    "privacyPolicy": "プライバシーポリシー",
+    "termsOfService": "利用規約",
+    "companyInfo": "運営会社"
+  },
+  "Members": {
+    "member_01": {
+      "name": "坂東日奈多",
+      "kana": "バンドウヒナタ",
+      "birth": "2004.08.31 (21歳)",
+      "origin": "東京都",
+      "mbti": "ISTP 巨匠",
+      "experience": "ダンス歴8年、ボーカル歴なし"
+    },
+    "member_02": {
+      "name": "西条藍里",
+      "kana": "サイジョウアイリ",
+      "birth": "2003.09.17 (22歳)",
+      "origin": "京都府",
+      "mbti": "INFJ 提唱者",
+      "experience": "ダンス歴2年、ボーカル歴2年"
+    },
+    "member_03": {
+      "name": "白咲里莉穂",
+      "kana": "シロサキリリホ",
+      "birth": "2007.06.26 (18歳)",
+      "origin": "富山県",
+      "mbti": "ESFP エンターテイナー",
+      "experience": "ダンス歴1年、ボーカル歴1年"
+    },
+    "member_04": {
+      "name": "櫻井那奈子",
+      "kana": "サクライナナコ",
+      "birth": "2007.01.29 (19歳)",
+      "origin": "東京都",
+      "mbti": "INFP 仲介者",
+      "experience": "ダンス歴10年、ボーカル歴1年"
+    },
+    "member_05": {
+      "name": "坂東楓夏",
+      "kana": "バンドウフウカ",
+      "birth": "2004.08.31 (21歳)",
+      "origin": "東京都",
+      "mbti": "ESFP エンターテイナー",
+      "experience": "ダンス歴8年、ボーカル歴1年"
+    }
+  },
+  "UI": {
+    "digitalSingle": "DIGITAL SINGLE",
+    "release": "Release",
+    "listen": "LISTEN",
+    "detail": "DETAIL",
+    "comingSoon": "Coming soon",
+    "goodsComingSoon": "Goods coming soon",
+    "officialStore": "OFFICIAL STORE",
+    "soldOut": "SOLD OUT",
+    "noVideo": "No Video Available",
+    "birthOrigin": "BIRTH / ORIGIN",
+    "experience": "EXPERIENCE",
+    "mbti": "MBTI"
+  },
+  "Contact": {
+    "nameLabel": "お名前",
+    "namePlaceholder": "山田 太郎",
+    "emailLabel": "メールアドレス",
+    "emailPlaceholder": "mail@example.com",
+    "typeLabel": "お問い合わせ種別",
+    "typeOptions": {
+      "appearance": "出演依頼",
+      "media": "取材・メディア関連",
+      "fanletter": "ファンレター・プレゼントについて",
+      "other": "その他"
+    },
+    "messageLabel": "お問い合わせ内容",
+    "messagePlaceholder": "お問い合わせ内容をご入力ください",
+    "submitButton": "送信内容を確認する",
+    "submittingButton": "送信中..."
+  }
+}

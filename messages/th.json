@@ -1,0 +1,108 @@
+{
+  "Navigation": {
+    "information": "INFORMATION",
+    "schedule": "SCHEDULE",
+    "profile": "PROFILE",
+    "video": "VIDEO",
+    "discography": "DISCOGRAPHY",
+    "goods": "GOODS",
+    "contact": "CONTACT"
+  },
+  "Hero": {
+    "catchphrase": "Pure. Bright. Unstoppable."
+  },
+  "Concept": {
+    "catchphrase": "Pure. Bright. Unstoppable.",
+    "lead": "ความบริสุทธิ์ จะขับเคลื่อนโลกใบนี้ค่ะ",
+    "description": "พวกเราคือไอดอลกรุ๊ปที่ส่งมอบผลงานสร้างสรรค์ โดยมีแกนหลักคือความงดงามทางจิตวิญญาณของญี่ปุ่น ฝากติดตามพวกเราด้วยนะคะ!"
+  },
+  "Sections": {
+    "informationSubtitle": "ข่าวสารล่าสุด",
+    "viewAllInformation": "ดูข่าวสารทั้งหมด",
+    "scheduleSubtitle": "ตารางงาน",
+    "googleCalendarMissing": "ยังไม่ได้ตั้งค่าปฏิทินค่ะ",
+    "profileSubtitle": "โปรไฟล์สมาชิก",
+    "videoSubtitle": "มิวสิกวิดีโอ",
+    "discographySubtitle": "ผลงานเพลง",
+    "goodsSubtitle": "สินค้าออฟฟิเชียล",
+    "contactSubtitle": "ติดต่อพวกเรา"
+  },
+  "Footer": {
+    "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+    "termsOfService": "ข้อตกลงการใช้งาน",
+    "companyInfo": "บริษัทผู้ดำเนินงาน"
+  },
+  "Members": {
+    "member_01": {
+      "name": "ฮินาตะ บันโด",
+      "kana": "HINATA BANDO",
+      "birth": "2004.08.31 (21 ปี)",
+      "origin": "โตเกียว",
+      "mbti": "ISTP ผู้เชี่ยวชาญ",
+      "experience": "เต้น 8 ปี, ยังไม่มีประสบการณ์ร้องเพลงค่ะ"
+    },
+    "member_02": {
+      "name": "ไอริ ไซโจ",
+      "kana": "AIRI SAIJO",
+      "birth": "2003.09.17 (22 ปี)",
+      "origin": "เกียวโต",
+      "mbti": "INFJ ผู้แนะนำ",
+      "experience": "เต้น 2 ปี, ร้องเพลง 2 ปีค่ะ"
+    },
+    "member_03": {
+      "name": "ริริโฮะ ชิโรซากิ",
+      "kana": "RIRIHO SHIROSAKI",
+      "birth": "2007.06.26 (18 ปี)",
+      "origin": "โทยามะ",
+      "mbti": "ESFP ผู้มอบความบันเทิง",
+      "experience": "เต้น 1 ปี, ร้องเพลง 1 ปีค่ะ"
+    },
+    "member_04": {
+      "name": "นานาโกะ ซากุราอิ",
+      "kana": "NANAKO SAKURAI",
+      "birth": "2007.01.29 (19 ปี)",
+      "origin": "โตเกียว",
+      "mbti": "INFP ผู้ไกล่เกลี่ย",
+      "experience": "เต้น 10 ปี, ร้องเพลง 1 ปีค่ะ"
+    },
+    "member_05": {
+      "name": "ฟูกะ บันโด",
+      "kana": "FUKA BANDO",
+      "birth": "2004.08.31 (21 ปี)",
+      "origin": "โตเกียว",
+      "mbti": "ESFP ผู้มอบความบันเทิง",
+      "experience": "เต้น 8 ปี, ร้องเพลง 1 ปีค่ะ"
+    }
+  },
+  "UI": {
+    "digitalSingle": "DIGITAL SINGLE (ซิงเกิลดิจิทัล)",
+    "release": "วางจำหน่าย",
+    "listen": "ฟังเพลง",
+    "detail": "รายละเอียด",
+    "comingSoon": "Coming soon",
+    "goodsComingSoon": "สินค้าจะมาเร็วๆ นี้ค่ะ",
+    "officialStore": "ร้านค้าออฟฟิเชียล",
+    "soldOut": "SOLD OUT",
+    "noVideo": "ยังไม่มีวิดีโอค่ะ",
+    "birthOrigin": "BIRTH / ORIGIN",
+    "experience": "EXPERIENCE",
+    "mbti": "MBTI"
+  },
+  "Contact": {
+    "nameLabel": "ชื่อ",
+    "namePlaceholder": "สมชาย ใจดี",
+    "emailLabel": "อีเมล",
+    "emailPlaceholder": "mail@example.com",
+    "typeLabel": "ประเภทการติดต่อ",
+    "typeOptions": {
+      "appearance": "ติดต่องานแสดง",
+      "media": "สื่อมวลชนและสัมภาษณ์",
+      "fanletter": "จดหมายแฟนคลับและของขวัญ",
+      "other": "อื่นๆ"
+    },
+    "messageLabel": "ข้อความ",
+    "messagePlaceholder": "กรุณาระบุรายละเอียดการติดต่อค่ะ",
+    "submitButton": "ยืนยันข้อมูล",
+    "submittingButton": "กำลังส่ง..."
+  }
+}

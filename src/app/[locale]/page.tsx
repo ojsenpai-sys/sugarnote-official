@@ -4,7 +4,12 @@ import ClientPage from "@/components/ClientPage";
 // Force dynamic rendering so we don't fetch from Supabase during build time
 export const dynamic = 'force-dynamic';
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const supabase = await createClient();
 
   let siteSettings = null;

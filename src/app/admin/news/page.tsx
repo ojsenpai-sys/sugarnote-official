@@ -6,16 +6,23 @@ import { Plus, Edit2, Trash2, X, Check } from "lucide-react";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import ImageUpload from "@/components/admin/ImageUpload";
 import { Toaster, toast } from "react-hot-toast";
+import { translateContent } from "@/app/actions/translate";
 
 export default function NewsAdmin() {
   const [news, setNews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"ja" | "en" | "th">("ja");
+  const [isTranslating, setIsTranslating] = useState(false);
   
   // Form State
   const [title, setTitle] = useState("");
+  const [titleEn, setTitleEn] = useState("");
+  const [titleTh, setTitleTh] = useState("");
   const [category, setCategory] = useState("NEWS");
   const [content, setContent] = useState("");
+  const [contentEn, setContentEn] = useState("");
+  const [contentTh, setContentTh] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [publishedOn, setPublishedOn] = useState("");
   const [status, setStatus] = useState("published");
@@ -39,11 +46,16 @@ export default function NewsAdmin() {
   };
 
   const openForm = (item?: any) => {
+    setActiveTab("ja");
     if (item) {
       setEditingId(item.id);
       setTitle(item.title);
+      setTitleEn(item.title_en || "");
+      setTitleTh(item.title_th || "");
       setCategory(item.category || "NEWS");
       setContent(item.content || "");
+      setContentEn(item.content_en || "");
+      setContentTh(item.content_th || "");
       setImageUrl(item.image_url || "");
       setPublishedOn(item.published_on || "");
       setStatus(item.status || "published");
@@ -60,8 +72,12 @@ export default function NewsAdmin() {
     } else {
       setEditingId("new");
       setTitle("");
+      setTitleEn("");
+      setTitleTh("");
       setCategory("NEWS");
       setContent("");
+      setContentEn("");
+      setContentTh("");
       setImageUrl("");
       setStatus("draft");
       
@@ -84,8 +100,12 @@ export default function NewsAdmin() {
     const utcDate = new Date(publishedAt).toISOString();
     const payload = {
       title,
+      title_en: titleEn,
+      title_th: titleTh,
       category,
       content,
+      content_en: contentEn,
+      content_th: contentTh,
       image_url: imageUrl,
       published_on: publishedAt.split("T")[0],
       published_at: utcDate,
@@ -122,6 +142,28 @@ export default function NewsAdmin() {
     }
   };
 
+  const handleTranslate = async () => {
+    if (!title || !content || content === "<p></p>") {
+      toast.error("翻訳を実行するには、まず日本語の「タイトル」と「本文」を入力してください。");
+      return;
+    }
+    
+    setIsTranslating(true);
+    toast.loading("AIで翻訳中...", { id: "translate" });
+    try {
+      const res = await translateContent(title, content);
+      if (res.title_en) setTitleEn(res.title_en);
+      if (res.title_th) setTitleTh(res.title_th);
+      if (res.content_en) setContentEn(res.content_en);
+      if (res.content_th) setContentTh(res.content_th);
+      toast.success("翻訳が完了しました！タブを切り替えて確認してください。", { id: "translate" });
+    } catch (error: any) {
+      toast.error(error.message || "翻訳に失敗しました。", { id: "translate" });
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
   return (
     <>
       <Toaster position="top-center" />
@@ -146,11 +188,46 @@ export default function NewsAdmin() {
           </div>
           
           <form onSubmit={handleSave} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="md:col-span-3">
-                <label className="block text-sm font-bold text-slate-700 mb-2">タイトル</label>
-                <input type="text" value={title} onChange={e => setTitle(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+            {/* Language Tabs */}
+            <div className="flex items-center gap-2 border-b border-slate-200 mb-4 pb-2 overflow-x-auto whitespace-nowrap">
+               <button type="button" onClick={() => setActiveTab("ja")} className={`px-4 py-2 font-bold text-sm rounded-t-lg transition-colors ${activeTab === "ja" ? "bg-pink-50 text-pink-600 border-b-2 border-pink-500" : "text-slate-500 hover:bg-slate-50"}`}>日本語 (JA)</button>
+               <button type="button" onClick={() => setActiveTab("en")} className={`px-4 py-2 font-bold text-sm rounded-t-lg transition-colors ${activeTab === "en" ? "bg-pink-50 text-pink-600 border-b-2 border-pink-500" : "text-slate-500 hover:bg-slate-50"}`}>English (EN)</button>
+               <button type="button" onClick={() => setActiveTab("th")} className={`px-4 py-2 font-bold text-sm rounded-t-lg transition-colors ${activeTab === "th" ? "bg-pink-50 text-pink-600 border-b-2 border-pink-500" : "text-slate-500 hover:bg-slate-50"}`}>ภาษาไทย (TH)</button>
+               <div className="ml-auto flex items-center">
+                 <button type="button" onClick={handleTranslate} disabled={isTranslating} className="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-white px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-md shadow-slate-800/20">
+                    {isTranslating ? "翻訳中..." : "AIで自動翻訳 (EN/TH)"}
+                 </button>
+               </div>
+            </div>
+
+            <div className={`space-y-6 ${activeTab !== "ja" ? "hidden" : ""}`}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-3">
+                  <label className="block text-sm font-bold text-slate-700 mb-2">タイトル (日本語) <span className="text-pink-500">*</span></label>
+                  <input type="text" value={title} onChange={e => setTitle(e.target.value)} required={activeTab === 'ja'} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+                </div>
               </div>
+            </div>
+
+            <div className={`space-y-6 ${activeTab !== "en" ? "hidden" : ""}`}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-3">
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Title (English)</label>
+                  <input type="text" value={titleEn} onChange={e => setTitleEn(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+                </div>
+              </div>
+            </div>
+
+            <div className={`space-y-6 ${activeTab !== "th" ? "hidden" : ""}`}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-3">
+                  <label className="block text-sm font-bold text-slate-700 mb-2">หัวข้อ (Thai)</label>
+                  <input type="text" value={titleTh} onChange={e => setTitleTh(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">カテゴリ</label>
                 <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
@@ -178,9 +255,19 @@ export default function NewsAdmin() {
               <ImageUpload value={imageUrl} onChange={setImageUrl} folder="news" />
             </div>
 
-            <div>
-              <label className="block text-sm font-bold text-slate-700 mb-2">本文</label>
+            <div className={activeTab !== "ja" ? "hidden" : ""}>
+              <label className="block text-sm font-bold text-slate-700 mb-2">本文 (日本語)</label>
               <RichTextEditor value={content} onChange={setContent} />
+            </div>
+
+            <div className={activeTab !== "en" ? "hidden" : ""}>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Content (English)</label>
+              <RichTextEditor value={contentEn} onChange={setContentEn} />
+            </div>
+
+            <div className={activeTab !== "th" ? "hidden" : ""}>
+              <label className="block text-sm font-bold text-slate-700 mb-2">เนื้อหา (Thai)</label>
+              <RichTextEditor value={contentTh} onChange={setContentTh} />
             </div>
 
             <div className="flex justify-end gap-4 pt-6 border-t border-slate-100">

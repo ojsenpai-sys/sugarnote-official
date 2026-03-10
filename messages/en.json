@@ -1,0 +1,108 @@
+{
+  "Navigation": {
+    "information": "INFORMATION",
+    "schedule": "SCHEDULE",
+    "profile": "PROFILE",
+    "video": "VIDEO",
+    "discography": "DISCOGRAPHY",
+    "goods": "GOODS",
+    "contact": "CONTACT"
+  },
+  "Hero": {
+    "catchphrase": "Pure. Bright. Unstoppable."
+  },
+  "Concept": {
+    "catchphrase": "Pure. Bright. Unstoppable.",
+    "lead": "Purity moves the world.",
+    "description": "An idol group broadcasting creatives centered on the pure spirituality and essence of the Japanese spirit."
+  },
+  "Sections": {
+    "informationSubtitle": "Latest News",
+    "viewAllInformation": "View All Information",
+    "scheduleSubtitle": "Schedule",
+    "googleCalendarMissing": "Calendar not configured",
+    "profileSubtitle": "Member Profiles",
+    "videoSubtitle": "Music Videos",
+    "discographySubtitle": "Releases",
+    "goodsSubtitle": "Official Goods",
+    "contactSubtitle": "Contact Us"
+  },
+  "Footer": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "companyInfo": "Operating Company"
+  },
+  "Members": {
+    "member_01": {
+      "name": "Hinata Bando",
+      "kana": "HINATA BANDO",
+      "birth": "2004.08.31 (21yo)",
+      "origin": "Tokyo",
+      "mbti": "ISTP Virtuoso",
+      "experience": "8 yrs dance, no vocal exp."
+    },
+    "member_02": {
+      "name": "Airi Saijo",
+      "kana": "AIRI SAIJO",
+      "birth": "2003.09.17 (22yo)",
+      "origin": "Kyoto",
+      "mbti": "INFJ Advocate",
+      "experience": "2 yrs dance, 2 yrs vocal"
+    },
+    "member_03": {
+      "name": "Ririho Shirosaki",
+      "kana": "RIRIHO SHIROSAKI",
+      "birth": "2007.06.26 (18yo)",
+      "origin": "Toyama",
+      "mbti": "ESFP Entertainer",
+      "experience": "1 yr dance, 1 yr vocal"
+    },
+    "member_04": {
+      "name": "Nanako Sakurai",
+      "kana": "NANAKO SAKURAI",
+      "birth": "2007.01.29 (19yo)",
+      "origin": "Tokyo",
+      "mbti": "INFP Mediator",
+      "experience": "10 yrs dance, 1 yr vocal"
+    },
+    "member_05": {
+      "name": "Fuka Bando",
+      "kana": "FUKA BANDO",
+      "birth": "2004.08.31 (21yo)",
+      "origin": "Tokyo",
+      "mbti": "ESFP Entertainer",
+      "experience": "8 yrs dance, 1 yr vocal"
+    }
+  },
+  "UI": {
+    "digitalSingle": "DIGITAL SINGLE",
+    "release": "Release",
+    "listen": "LISTEN",
+    "detail": "DETAIL",
+    "comingSoon": "Coming soon",
+    "goodsComingSoon": "Goods coming soon",
+    "officialStore": "OFFICIAL STORE",
+    "soldOut": "SOLD OUT",
+    "noVideo": "No Video Available",
+    "birthOrigin": "BIRTH / ORIGIN",
+    "experience": "EXPERIENCE",
+    "mbti": "MBTI"
+  },
+  "Contact": {
+    "nameLabel": "Name",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "mail@example.com",
+    "typeLabel": "Inquiry Type",
+    "typeOptions": {
+      "appearance": "Booking Request",
+      "media": "Media / Press Inquiry",
+      "fanletter": "Fan Letters / Gifts",
+      "other": "Others"
+    },
+    "messageLabel": "Inquiry Details",
+    "messagePlaceholder": "Please enter your inquiry details.",
+    "submitButton": "Confirm Submission",
+    "submittingButton": "Sending..."
+  }
+}

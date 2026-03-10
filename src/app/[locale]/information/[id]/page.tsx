@@ -7,8 +7,8 @@ import Image from "next/image";
 // Revalidate data every 60 seconds
 export const revalidate = 60;
 
-export default async function InformationDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function InformationDetailPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
+  const { id, locale } = await params;
   const supabase = await createClient();
 
   let newsItem = null;
@@ -33,6 +33,9 @@ export default async function InformationDetailPage({ params }: { params: Promis
   if (!newsItem) {
     notFound();
   }
+
+  const displayTitle = locale === "en" && newsItem.title_en ? newsItem.title_en : locale === "th" && newsItem.title_th ? newsItem.title_th : newsItem.title;
+  const displayContent = locale === "en" && newsItem.content_en ? newsItem.content_en : locale === "th" && newsItem.content_th ? newsItem.content_th : newsItem.content;
 
   // Tiptap outputs standard HTML, which we can safely render via dangerouslySetInnerHTML
   // because the content is managed by site admins through a secure CMS.
@@ -86,7 +89,7 @@ export default async function InformationDetailPage({ params }: { params: Promis
               )}
             </div>
             <h1 className="text-2xl md:text-3xl font-semibold text-pink-400 leading-relaxed tracking-normal font-sans">
-              {newsItem.title}
+              {displayTitle}
             </h1>
           </header>
 
@@ -94,7 +97,7 @@ export default async function InformationDetailPage({ params }: { params: Promis
             <div className="mb-10 relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-md">
               <Image 
                 src={newsItem.image_url} 
-                alt={newsItem.title} 
+                alt={displayTitle} 
                 fill 
                 className="object-cover"
                 priority
@@ -109,7 +112,7 @@ export default async function InformationDetailPage({ params }: { params: Promis
               prose-headings:text-slate-800 prose-headings:font-bold prose-headings:tracking-tight
               prose-strong:text-slate-800
               prose-p:leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: newsItem.content || "" }}
+            dangerouslySetInnerHTML={{ __html: displayContent || "" }}
           />
         </article>
       </div>
