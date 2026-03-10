@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: "%s | SugarNote Official",
   },
   description: "「Pure. Bright. Unstoppable.」日本人の精神性を主軸に、緻密で繊細なクリエイティブを展開するアイドルグループSugarNote（シュガーノート）のオフィシャルサイト。",
-  keywords: ["SugarNote", "シュガーノート", "アイドル", "オフィシャルサイト", "坂東ひなた", "西条藍里", "白咲里莉穂", "櫻井那奈子", "坂東楓夏"],
+  keywords: ["SugarNote", "シュガーノート", "アイドル", "オフィシャルサイト", "坂東日奈多", "西条藍里", "白咲里莉穂", "櫻井那奈子", "坂東楓夏"],
   authors: [
     { name: "SugarNote Management" },
     { name: "ANCHOR (Music Production)" },

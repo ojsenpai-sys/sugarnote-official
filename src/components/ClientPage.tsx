@@ -51,7 +51,7 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 const members = [
   {
     id: "member_01",
-    name: "坂東ひなた",
+    name: "坂東日奈多",
     kana: "バンドウヒナタ",
     birth: "2004.08.31 (21歳)",
     origin: "東京都",
@@ -68,9 +68,9 @@ const members = [
     id: "member_02",
     name: "西条藍里",
     kana: "サイジョウアイリ",
-    birth: "2003.06.26 (22歳)",
-    origin: "富山県",
-    mbti: "ESFP エンターテイナー",
+    birth: "2003.09.17 (22歳)",
+    origin: "京都府",
+    mbti: "INFJ 提唱者",
     experience: "ダンス歴2年、ボーカル歴2年",
     image: "/images/member_02.jpg",
     sns: {
@@ -249,11 +249,17 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
           initial="hidden"
           animate="visible"
           variants={fadeIn}
-          className="relative z-10 text-center px-4 mt-32 md:mt-0"
+          className="relative z-10 text-center px-4 mt-32 md:mt-0 w-full max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-8xl font-semibold font-sans text-white drop-shadow-lg tracking-normal md:tracking-tighter mb-4">
-            SugarNote
-          </h1>
+          <div className="relative w-[300px] sm:w-[500px] md:w-[700px] mx-auto mb-6 md:mb-10 aspect-[3/1]">
+            <Image
+              src="/images/logo_ribbon.png"
+              alt="SugarNote Logo"
+              fill
+              className="object-contain drop-shadow-xl"
+              priority
+            />
+          </div>
           <p className="text-lg md:text-3xl font-medium font-sans text-white drop-shadow-md tracking-wider md:tracking-widest">
             Pure. Bright. Unstoppable.
           </p>
@@ -349,14 +355,15 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             className="bg-white rounded-3xl p-2 md:p-6 shadow-xl shadow-pink-100/50 border border-pink-50 w-full overflow-hidden"
           >
             <div className="aspect-video w-full bg-slate-50 rounded-2xl overflow-hidden border border-pink-100 relative">
-              {siteSettings?.calendar_id ? (
-                <iframe src={`https://calendar.google.com/calendar/embed?src=${siteSettings.calendar_id}&ctz=Asia%2FTokyo`} style={{border: 0}} width="100%" height="100%" frameBorder="0" scrolling="no" className="absolute top-0 left-0 w-full h-full"></iframe>
-              ) : (
-                <div className="flex flex-col items-center justify-center h-full">
-                  <Calendar className="w-16 h-16 text-pink-200 mx-auto mb-4" />
-                  <p className="text-slate-500 font-bold">Googleカレンダーが未設定です</p>
-                </div>
-              )}
+              <iframe 
+                src="https://timetr.ee/p/sugarnote_ofc" 
+                style={{border: 0}} 
+                width="100%" 
+                height="100%" 
+                frameBorder="0" 
+                scrolling="yes" 
+                className="absolute top-0 left-0 w-full h-full bg-white"
+              ></iframe>
             </div>
           </motion.div>
         </div>
