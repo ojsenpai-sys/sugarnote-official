@@ -573,6 +573,10 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
                   <input type="text" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all" placeholder="山田 太郎" />
                 </div>
                 <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">貴社名 / 法人名（任意）</label>
+                  <input type="text" name="company_name" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all" placeholder="株式会社〇〇" />
+                </div>
+                <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">メールアドレス <span className="text-pink-500">*</span></label>
                   <input type="email" name="email" required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all" placeholder="mail@example.com" />
                 </div>
