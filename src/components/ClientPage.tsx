@@ -25,6 +25,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { submitContactForm } from "@/app/actions/contact";
 import type { Dictionary } from "@/dictionaries";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { MEMBERS_META } from "@/constants/members";
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -51,83 +52,6 @@ const TikTokIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const members = [
-  {
-    id: "member_01",
-    name: "坂東日奈多",
-    kana: "バンドウヒナタ",
-    birth: "2004.08.31 (21歳)",
-    origin: "東京都",
-    mbti: "ISTP 巨匠",
-    experience: "ダンス歴8年、ボーカル歴なし",
-    image: "/images/member_01.jpg",
-    sns: {
-      tiktok: "https://www.tiktok.com/@sugarnote_hina",
-      instagram: "https://www.instagram.com/sugarnote_hina/",
-      x: "https://x.com/SugarNote_hina?s=20"
-    }
-  },
-  {
-    id: "member_02",
-    name: "西条藍里",
-    kana: "サイジョウアイリ",
-    birth: "2003.09.17 (22歳)",
-    origin: "京都府",
-    mbti: "INFJ 提唱者",
-    experience: "ダンス歴2年、ボーカル歴2年",
-    image: "/images/member_02.jpg",
-    sns: {
-      tiktok: "https://www.tiktok.com/@sugarnote_airi",
-      instagram: "https://www.instagram.com/sugarnote_airi/",
-      x: "https://x.com/sugarnote_airi?s=20"
-    }
-  },
-  {
-    id: "member_03",
-    name: "白咲里莉穂",
-    kana: "シロサキリリホ",
-    birth: "2007.06.26 (18歳)",
-    origin: "富山県",
-    mbti: "ESFP エンターテイナー",
-    experience: "ダンス歴1年、ボーカル歴1年",
-    image: "/images/member_03.jpg",
-    sns: {
-      tiktok: "https://www.tiktok.com/@sugarnote_ririho",
-      instagram: "https://www.instagram.com/sugarnote_ririho/",
-      x: "https://x.com/SugarNote_ririh?s=20"
-    }
-  },
-  {
-    id: "member_04",
-    name: "櫻井那奈子",
-    kana: "サクライナナコ",
-    birth: "2007.01.29 (19歳)",
-    origin: "東京都",
-    mbti: "INFP 仲介者",
-    experience: "ダンス歴10年、ボーカル歴1年",
-    image: "/images/member_04.jpg",
-    sns: {
-      tiktok: "https://www.tiktok.com/@sugarnote_nanako",
-      instagram: "https://www.instagram.com/sugarnote_nanako/",
-      x: "https://x.com/SugarNote_nana?s=20"
-    }
-  },
-  {
-    id: "member_05",
-    name: "坂東楓夏",
-    kana: "バンドウフウカ",
-    birth: "2004.08.31 (21歳)",
-    origin: "東京都",
-    mbti: "ESFP エンターテイナー",
-    experience: "ダンス歴8年、ボーカル歴1年",
-    image: "/images/member_05.jpg",
-    sns: {
-      tiktok: "https://www.tiktok.com/@sugarnote_fuka",
-      instagram: "https://www.instagram.com/sugarnote_fuka/",
-      x: "https://x.com/sugarnote_fuka?s=20"
-    }
-  }
-];
 
 interface ClientPageProps {
   siteSettings: any;
@@ -403,7 +327,9 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 xl:gap-8"
           >
-            {members.map((member, i) => (
+            {dict.members.map((member) => {
+              const meta = MEMBERS_META[member.id]!;
+              return (
               <motion.div
                 key={member.id}
                 variants={fadeIn}
@@ -411,7 +337,7 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
               >
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-pink-100">
                   <Image
-                    src={member.image}
+                    src={meta.image}
                     alt={member.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -442,25 +368,26 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
                   </div>
 
                   <div className="flex gap-3 justify-start mt-2">
-                    {member.sns?.tiktok && (
-                      <a href={member.sns.tiktok} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
+                    {meta.sns?.tiktok && (
+                      <a href={meta.sns.tiktok} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
                         <TikTokIcon className="w-4 h-4" />
                       </a>
                     )}
-                    {member.sns?.instagram && (
-                      <a href={member.sns.instagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
+                    {meta.sns?.instagram && (
+                      <a href={meta.sns.instagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
                         <Instagram className="w-4 h-4" />
                       </a>
                     )}
-                    {member.sns?.x && (
-                      <a href={member.sns.x} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
+                    {meta.sns?.x && (
+                      <a href={meta.sns.x} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors">
                         <Twitter className="w-4 h-4" />
                       </a>
                     )}
                   </div>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>

@@ -84,5 +84,52 @@
   "detail": {
     "backToList": "Back to News",
     "back": "Back"
-  }
+  },
+  "members": [
+    {
+      "id": "member_01",
+      "name": "坂東日奈多",
+      "kana": "BANDO HINATA",
+      "birth": "2004.08.31 (age 21)",
+      "origin": "Tokyo",
+      "mbti": "ISTP The Virtuoso",
+      "experience": "8 years dance, no vocal training"
+    },
+    {
+      "id": "member_02",
+      "name": "西条藍里",
+      "kana": "SAIJO AIRI",
+      "birth": "2003.09.17 (age 22)",
+      "origin": "Kyoto",
+      "mbti": "INFJ The Advocate",
+      "experience": "2 years dance, 2 years vocal"
+    },
+    {
+      "id": "member_03",
+      "name": "白咲里莉穂",
+      "kana": "SHIROSAKI RIRIHO",
+      "birth": "2007.06.26 (age 18)",
+      "origin": "Toyama",
+      "mbti": "ESFP The Entertainer",
+      "experience": "1 year dance, 1 year vocal"
+    },
+    {
+      "id": "member_04",
+      "name": "櫻井那奈子",
+      "kana": "SAKURAI NANAKO",
+      "birth": "2007.01.29 (age 19)",
+      "origin": "Tokyo",
+      "mbti": "INFP The Mediator",
+      "experience": "10 years dance, 1 year vocal"
+    },
+    {
+      "id": "member_05",
+      "name": "坂東楓夏",
+      "kana": "BANDO FUKA",
+      "birth": "2004.08.31 (age 21)",
+      "origin": "Tokyo",
+      "mbti": "ESFP The Entertainer",
+      "experience": "8 years dance, 1 year vocal"
+    }
+  ]
 }
