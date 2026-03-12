@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "information": "ข่าวสาร",
+    "schedule": "กำหนดการ",
+    "profile": "โปรไฟล์",
+    "video": "วิดีโอ",
+    "discography": "ผลงานเพลง",
+    "goods": "สินค้า",
+    "contact": "ติดต่อ"
+  },
+  "hero": {
+    "scroll": "เลื่อนลง"
+  },
+  "concept": {
+    "tagline": "Pure. Bright. Unstoppable.",
+    "description": "ความบริสุทธิ์ขับเคลื่อนโลก\nกลุ่มไอดอลที่สร้างสรรค์ผลงานโดยยึดจิตวิญญาณของชาวญี่ปุ่นเป็นแกนหลัก"
+  },
+  "information": {
+    "title": "ข่าวสาร",
+    "subtitle": "ข่าวล่าสุด",
+    "viewAll": "ดูข่าวสารทั้งหมด"
+  },
+  "schedule": {
+    "title": "กำหนดการ",
+    "subtitle": "ตารางกิจกรรม"
+  },
+  "profile": {
+    "title": "โปรไฟล์",
+    "subtitle": "โปรไฟล์สมาชิก",
+    "birth": "วันเกิด / บ้านเกิด",
+    "mbti": "MBTI",
+    "experience": "ประสบการณ์"
+  },
+  "video": {
+    "title": "วิดีโอ",
+    "subtitle": "คอนเทนต์วิดีโอ",
+    "noVideo": "ไม่มีวิดีโอในขณะนี้"
+  },
+  "discography": {
+    "title": "ผลงานเพลง",
+    "subtitle": "เพลง",
+    "digitalSingle": "ดิจิทัลซิงเกิล",
+    "listen": "ฟัง",
+    "detail": "รายละเอียด",
+    "release": "วางจำหน่าย",
+    "viewAll": "ดูผลงานทั้งหมด",
+    "comingSoon": "เร็วๆ นี้"
+  },
+  "goods": {
+    "title": "สินค้า",
+    "subtitle": "สินค้าออฟิเชียล",
+    "soldOut": "หมดแล้ว",
+    "officialStore": "ร้านค้าออฟิเชียล",
+    "comingSoon": "เร็วๆ นี้"
+  },
+  "contact": {
+    "title": "ติดต่อ",
+    "subtitle": "ติดต่อเรา",
+    "name": "ชื่อ-นามสกุล",
+    "namePlaceholder": "ทาโร่ ยามาดะ",
+    "company": "บริษัท / องค์กร (ถ้ามี)",
+    "companyPlaceholder": "บริษัท ABC จำกัด",
+    "email": "อีเมล",
+    "emailPlaceholder": "mail@example.com",
+    "required": "*",
+    "type": "ประเภทการติดต่อ",
+    "types": {
+      "performance": "ขอการแสดง",
+      "media": "สื่อมวลชน / สื่อสิ่งพิมพ์",
+      "fanmail": "แฟนเมล / ของขวัญ",
+      "other": "อื่นๆ"
+    },
+    "message": "ข้อความ",
+    "messagePlaceholder": "กรุณาระบุรายละเอียดการติดต่อ",
+    "submit": "ตรวจสอบและส่ง",
+    "submitting": "กำลังส่ง..."
+  },
+  "footer": {
+    "privacy": "นโยบายความเป็นส่วนตัว",
+    "terms": "ข้อกำหนดการใช้งาน",
+    "company": "เกี่ยวกับเรา",
+    "copyright": "© 2026 SugarNote Official. All Rights Reserved."
+  },
+  "detail": {
+    "backToList": "กลับไปยังรายการข่าว",
+    "back": "กลับ"
+  }
+}

@@ -1,33 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { LayoutDashboard, FileText, Disc, ShoppingBag, Video, Settings, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const params = useParams<{ lang: string }>();
+  const lang = params?.lang ?? "ja";
   const router = useRouter();
   const supabase = createClient();
 
   // Do not show sidebar on login page
-  if (pathname === "/admin/login") {
+  if (pathname.endsWith("/admin/login")) {
     return <>{children}</>;
   }
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/admin/login");
+    router.push(`/${lang}/admin/login`);
     router.refresh();
   };
 
   const navItems = [
-    { name: "ダッシュボード", href: "/admin", icon: LayoutDashboard },
-    { name: "ニュース", href: "/admin/news", icon: FileText },
-    { name: "ディスコグラフィ", href: "/admin/discography", icon: Disc },
-    { name: "グッズ", href: "/admin/goods", icon: ShoppingBag },
-    { name: "動画", href: "/admin/videos", icon: Video },
-    { name: "サイト設定", href: "/admin/settings", icon: Settings },
+    { name: "ダッシュボード", href: `/${lang}/admin`, icon: LayoutDashboard },
+    { name: "ニュース", href: `/${lang}/admin/news`, icon: FileText },
+    { name: "ディスコグラフィ", href: `/${lang}/admin/discography`, icon: Disc },
+    { name: "グッズ", href: `/${lang}/admin/goods`, icon: ShoppingBag },
+    { name: "動画", href: `/${lang}/admin/videos`, icon: Video },
+    { name: "サイト設定", href: `/${lang}/admin/settings`, icon: Settings },
   ];
 
   return (

@@ -32,21 +32,25 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // protect /admin routes
-  if (request.nextUrl.pathname.startsWith("/admin") && !request.nextUrl.pathname.startsWith("/admin/login")) {
+  // protect /[lang]/admin routes (e.g. /ja/admin, /en/admin/news)
+  const segments = request.nextUrl.pathname.split("/");
+  const langSegment = segments[1] ?? "ja"; // e.g. "ja", "en", "th"
+  const isAdminRoute = segments[2] === "admin";
+  const isLoginPage = segments[2] === "admin" && segments[3] === "login";
+
+  if (isAdminRoute && !isLoginPage) {
     if (!user) {
-      // no user, redirect to login
       const url = request.nextUrl.clone();
-      url.pathname = "/admin/login";
+      url.pathname = `/${langSegment}/admin/login`;
       return NextResponse.redirect(url);
     }
   }
 
-  // bypass login if already authenticated
-  if (request.nextUrl.pathname.startsWith("/admin/login") && user) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/admin";
-      return NextResponse.redirect(url);
+  // bypass login page if already authenticated
+  if (isLoginPage && user) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${langSegment}/admin`;
+    return NextResponse.redirect(url);
   }
 
   return supabaseResponse;

@@ -1,21 +1,25 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { localizeNewsItem } from "@/lib/localize";
+import { getDictionary } from "@/dictionaries";
+import type { Locale } from "@/dictionaries";
 import { ChevronLeft, Calendar, Tag, Music, Star, Twitter, Instagram, Youtube } from "lucide-react";
 import Image from "next/image";
 
 // Revalidate data every 60 seconds
 export const revalidate = 60;
 
-export default async function InformationDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function InformationDetailPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
+  const { lang, id } = await params;
   const supabase = await createClient();
+  const dict = await getDictionary(lang);
 
   let newsItem = null;
   try {
     const { data, error } = await supabase
       .from("news")
-      .select("*")
+      .select("*, title_i18n, content_i18n")
       .eq("id", id)
       .eq("status", "published")
       .lte("published_at", new Date().toISOString())
@@ -24,7 +28,8 @@ export default async function InformationDetailPage({ params }: { params: Promis
     if (error) {
       console.error("Supabase Error:", error);
     } else {
-      newsItem = data;
+      // Resolve title / content to the requested language (falls back to Japanese)
+      newsItem = localizeNewsItem(data, lang as Locale);
     }
   } catch (err) {
     console.error("Fetch exception in InformationDetailPage:", err);
@@ -43,7 +48,7 @@ export default async function InformationDetailPage({ params }: { params: Promis
       <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-pink-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href={`/${lang}`} className="flex items-center gap-2 group">
               <div className="relative w-10 h-10 overflow-hidden rounded-full border-2 border-pink-200">
                 <Image 
                   src="/images/logo_heart.png" 
@@ -55,8 +60,8 @@ export default async function InformationDetailPage({ params }: { params: Promis
               <span className="font-extrabold text-2xl tracking-tighter text-pink-500">SugarNote</span>
             </Link>
             <div className="flex items-center space-x-8">
-               <Link href="/#information" className="text-sm font-bold text-slate-600 hover:text-pink-500 transition-colors flex items-center gap-1">
-                 <ChevronLeft className="w-4 h-4" /> 戻る
+               <Link href={`/${lang}#information`} className="text-sm font-bold text-slate-600 hover:text-pink-500 transition-colors flex items-center gap-1">
+                 <ChevronLeft className="w-4 h-4" /> {dict.detail.back}
                </Link>
             </div>
           </div>
@@ -64,11 +69,11 @@ export default async function InformationDetailPage({ params }: { params: Promis
       </nav>
 
       <div className="pt-32 px-4 max-w-4xl mx-auto">
-        <Link href="/#information" className="inline-flex items-center gap-2 text-pink-500 font-bold hover:text-pink-600 transition-colors mb-8 group">
+        <Link href={`/${lang}#information`} className="inline-flex items-center gap-2 text-pink-500 font-bold hover:text-pink-600 transition-colors mb-8 group">
           <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors">
             <ChevronLeft className="w-5 h-5" />
           </div>
-          ニュース一覧へ戻る
+          {dict.detail.backToList}
         </Link>
         
         <article className="bg-white rounded-3xl p-6 md:p-12 shadow-[0_8px_30px_-10px_rgba(236,72,153,0.15)] border border-pink-100">
@@ -138,21 +143,21 @@ export default async function InformationDetailPage({ params }: { params: Promis
             
             <div className="grid grid-cols-2 gap-x-12 gap-y-4 text-center md:text-left text-sm font-bold tracking-widest">
               {['INFORMATION', 'SCHEDULE', 'PROFILE', 'VIDEO'].map((item) => (
-                <Link key={item} href={`/#${item.toLowerCase()}`} className="hover:text-pink-400 transition-colors">{item}</Link>
+                <Link key={item} href={`/${lang}#${item.toLowerCase()}`} className="hover:text-pink-400 transition-colors">{item}</Link>
               ))}
               {['DISCOGRAPHY', 'GOODS', 'FANCLUB', 'CONTACT'].map((item) => (
-                <Link key={item} href={`/#${item.toLowerCase()}`} className="hover:text-pink-400 transition-colors">{item}</Link>
+                <Link key={item} href={`/${lang}#${item.toLowerCase()}`} className="hover:text-pink-400 transition-colors">{item}</Link>
               ))}
             </div>
           </div>
           
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
             <div className="flex gap-4">
-              <a href="#" className="hover:text-pink-400 transition-colors">プライバシーポリシー</a>
-              <a href="#" className="hover:text-pink-400 transition-colors">利用規約</a>
-              <a href="#" className="hover:text-pink-400 transition-colors">運営会社</a>
+              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.privacy}</a>
+              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.terms}</a>
+              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.company}</a>
             </div>
-            <p>© 2026 SugarNote Official. All Rights Reserved.</p>
+            <p>{dict.footer.copyright}</p>
           </div>
         </div>
       </footer>

@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "information": "INFORMATION",
+    "schedule": "SCHEDULE",
+    "profile": "PROFILE",
+    "video": "VIDEO",
+    "discography": "DISCOGRAPHY",
+    "goods": "GOODS",
+    "contact": "CONTACT"
+  },
+  "hero": {
+    "scroll": "SCROLL"
+  },
+  "concept": {
+    "tagline": "Pure. Bright. Unstoppable.",
+    "description": "Purity moves the world.\nAn idol group that expresses creativity rooted in the Japanese spirit."
+  },
+  "information": {
+    "title": "INFORMATION",
+    "subtitle": "Latest News",
+    "viewAll": "View All Information"
+  },
+  "schedule": {
+    "title": "SCHEDULE",
+    "subtitle": "Schedule"
+  },
+  "profile": {
+    "title": "PROFILE",
+    "subtitle": "Member Profiles",
+    "birth": "BIRTH / ORIGIN",
+    "mbti": "MBTI",
+    "experience": "EXPERIENCE"
+  },
+  "video": {
+    "title": "VIDEO",
+    "subtitle": "Video Content",
+    "noVideo": "No Video Available"
+  },
+  "discography": {
+    "title": "DISCOGRAPHY",
+    "subtitle": "Music",
+    "digitalSingle": "DIGITAL SINGLE",
+    "listen": "LISTEN",
+    "detail": "DETAIL",
+    "release": "Release",
+    "viewAll": "View All Discography",
+    "comingSoon": "Coming soon"
+  },
+  "goods": {
+    "title": "GOODS",
+    "subtitle": "Official Merchandise",
+    "soldOut": "SOLD OUT",
+    "officialStore": "OFFICIAL STORE",
+    "comingSoon": "Goods coming soon"
+  },
+  "contact": {
+    "title": "CONTACT",
+    "subtitle": "Contact Us",
+    "name": "Full Name",
+    "namePlaceholder": "Taro Yamada",
+    "company": "Company / Organization (optional)",
+    "companyPlaceholder": "ABC Corporation",
+    "email": "Email Address",
+    "emailPlaceholder": "mail@example.com",
+    "required": "*",
+    "type": "Inquiry Type",
+    "types": {
+      "performance": "Performance Request",
+      "media": "Press / Media",
+      "fanmail": "Fan Mail / Gifts",
+      "other": "Other"
+    },
+    "message": "Message",
+    "messagePlaceholder": "Please enter your inquiry here.",
+    "submit": "Review & Submit",
+    "submitting": "Sending..."
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "company": "About Us",
+    "copyright": "© 2026 SugarNote Official. All Rights Reserved."
+  },
+  "detail": {
+    "backToList": "Back to News",
+    "back": "Back"
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Lock } from "lucide-react";
 
@@ -10,6 +10,8 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const params = useParams<{ lang: string }>();
+  const lang = params?.lang ?? "ja";
   const router = useRouter();
   const supabase = createClient();
 
@@ -26,7 +28,7 @@ export default function AdminLogin() {
     if (error) {
       setError(error.message);
     } else {
-      router.push("/admin");
+      router.push(`/${lang}/admin`);
       router.refresh(); // Server components update
     }
     setLoading(false);

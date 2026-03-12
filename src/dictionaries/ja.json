@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "information": "INFORMATION",
+    "schedule": "SCHEDULE",
+    "profile": "PROFILE",
+    "video": "VIDEO",
+    "discography": "DISCOGRAPHY",
+    "goods": "GOODS",
+    "contact": "CONTACT"
+  },
+  "hero": {
+    "scroll": "SCROLL"
+  },
+  "concept": {
+    "tagline": "Pure. Bright. Unstoppable.",
+    "description": "ピュアが、世界を動かす。\n日本人の持つ精神性を主軸にしたクリエイティブを発信していくアイドルグループ。"
+  },
+  "information": {
+    "title": "INFORMATION",
+    "subtitle": "最新情報",
+    "viewAll": "View All Information"
+  },
+  "schedule": {
+    "title": "SCHEDULE",
+    "subtitle": "スケジュール"
+  },
+  "profile": {
+    "title": "PROFILE",
+    "subtitle": "メンバープロフィール",
+    "birth": "BIRTH / ORIGIN",
+    "mbti": "MBTI",
+    "experience": "EXPERIENCE"
+  },
+  "video": {
+    "title": "VIDEO",
+    "subtitle": "動画コンテンツ",
+    "noVideo": "No Video Available"
+  },
+  "discography": {
+    "title": "DISCOGRAPHY",
+    "subtitle": "楽曲情報",
+    "digitalSingle": "DIGITAL SINGLE",
+    "listen": "LISTEN",
+    "detail": "DETAIL",
+    "release": "Release",
+    "viewAll": "View All Discography",
+    "comingSoon": "Coming soon"
+  },
+  "goods": {
+    "title": "GOODS",
+    "subtitle": "オフィシャルグッズ",
+    "soldOut": "SOLD OUT",
+    "officialStore": "OFFICIAL STORE",
+    "comingSoon": "Goods coming soon"
+  },
+  "contact": {
+    "title": "CONTACT",
+    "subtitle": "お問い合わせ",
+    "name": "お名前",
+    "namePlaceholder": "山田 太郎",
+    "company": "貴社名 / 法人名（任意）",
+    "companyPlaceholder": "株式会社〇〇",
+    "email": "メールアドレス",
+    "emailPlaceholder": "mail@example.com",
+    "required": "*",
+    "type": "お問い合わせ種別",
+    "types": {
+      "performance": "出演依頼",
+      "media": "取材・メディア関連",
+      "fanmail": "ファンレター・プレゼントについて",
+      "other": "その他"
+    },
+    "message": "お問い合わせ内容",
+    "messagePlaceholder": "お問い合わせ内容をご入力ください",
+    "submit": "送信内容を確認する",
+    "submitting": "送信中..."
+  },
+  "footer": {
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "company": "運営会社",
+    "copyright": "© 2026 SugarNote Official. All Rights Reserved."
+  },
+  "detail": {
+    "backToList": "ニュース一覧へ戻る",
+    "back": "戻る"
+  }
+}
