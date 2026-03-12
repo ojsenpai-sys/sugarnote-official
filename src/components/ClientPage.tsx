@@ -298,16 +298,21 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             variants={fadeIn}
             className="bg-white rounded-3xl p-2 md:p-6 shadow-xl shadow-pink-100/50 border border-pink-50 w-full overflow-hidden"
           >
-            <div className="aspect-video w-full bg-slate-50 rounded-2xl overflow-hidden border border-pink-100 relative">
+            {/* Explicit height avoids aspect-ratio:0 bugs on some browsers */}
+            <div className="w-full h-[480px] md:h-[620px] bg-slate-50 rounded-2xl overflow-hidden border border-pink-100">
               <iframe
-                src="https://timetreeapp.com/public_calendars/sugarnote_ofc/widget"
-                style={{border: 0}}
+                src={
+                  siteSettings?.timetree_url ||
+                  "https://timetreeapp.com/public_calendars/sugarnote_ofc/widget"
+                }
+                style={{ border: 0 }}
                 width="100%"
                 height="100%"
-                frameBorder="0"
-                scrolling="yes"
-                className="absolute top-0 left-0 w-full h-full bg-white"
-              ></iframe>
+                title="SugarNote Schedule"
+                allow="fullscreen"
+                loading="lazy"
+                className="w-full h-full bg-white"
+              />
             </div>
           </motion.div>
         </div>
