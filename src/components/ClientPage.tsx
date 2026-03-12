@@ -24,6 +24,7 @@ import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
 import { submitContactForm } from "@/app/actions/contact";
 import type { Dictionary } from "@/dictionaries";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -212,8 +213,14 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
               ))}
             </div>
 
+            {/* Language Switcher (desktop) */}
+            <div className="hidden md:flex items-center">
+              <LanguageSwitcher currentLang={lang} />
+            </div>
+
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            <div className="md:hidden flex items-center gap-3">
+              <LanguageSwitcher currentLang={lang} />
               <button onClick={toggleMenu} className="text-pink-500 hover:text-pink-600 focus:outline-none">
                 {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
               </button>

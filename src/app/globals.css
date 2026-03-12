@@ -21,3 +21,45 @@ body {
     color: var(--foreground);
     background: var(--background);
 }
+
+/* ── Thai Typography ─────────────────────────────────────────────────────────
+   :lang(th) targets <html lang="th"> set dynamically in [lang]/layout.tsx.
+
+   Thai script stacks tone marks above/below characters, so a generous
+   line-height (≥ 1.9) prevents mark collisions between adjacent lines.
+   Noto Sans Thai is loaded via next/font and injected as --font-noto-sans-thai.
+────────────────────────────────────────────────────────────────────────────── */
+:lang(th) {
+  font-family:
+    var(--font-noto-sans-thai),
+    var(--font-noto-sans-jp),
+    var(--font-montserrat),
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+  line-height: 2;
+  word-break: normal;        /* Thai word boundaries don't use spaces */
+  overflow-wrap: anywhere;   /* prevent long unbreakable strings from overflowing */
+}
+
+/* Headings need slightly tighter line-height than body, but still roomy */
+:lang(th) h1,
+:lang(th) h2,
+:lang(th) h3,
+:lang(th) h4,
+:lang(th) h5,
+:lang(th) h6 {
+  line-height: 1.8;
+}
+
+/* Prose / article body (Tiptap-rendered news content) */
+:lang(th) .prose p,
+:lang(th) .prose li {
+  line-height: 2.1;
+}
+
+:lang(th) .prose h1,
+:lang(th) .prose h2,
+:lang(th) .prose h3 {
+  line-height: 1.8;
+}

@@ -6,6 +6,7 @@ import { getDictionary } from "@/dictionaries";
 import type { Locale } from "@/dictionaries";
 import { ChevronLeft, Calendar, Tag, Music, Star, Twitter, Instagram, Youtube } from "lucide-react";
 import Image from "next/image";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 // Revalidate data every 60 seconds
 export const revalidate = 60;
@@ -59,10 +60,11 @@ export default async function InformationDetailPage({ params }: { params: Promis
               </div>
               <span className="font-extrabold text-2xl tracking-tighter text-pink-500">SugarNote</span>
             </Link>
-            <div className="flex items-center space-x-8">
-               <Link href={`/${lang}#information`} className="text-sm font-bold text-slate-600 hover:text-pink-500 transition-colors flex items-center gap-1">
-                 <ChevronLeft className="w-4 h-4" /> {dict.detail.back}
-               </Link>
+            <div className="flex items-center gap-6">
+              <Link href={`/${lang}#information`} className="text-sm font-bold text-slate-600 hover:text-pink-500 transition-colors flex items-center gap-1">
+                <ChevronLeft className="w-4 h-4" /> {dict.detail.back}
+              </Link>
+              <LanguageSwitcher currentLang={lang} />
             </div>
           </div>
         </div>
