@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Montserrat, Noto_Sans_JP, Noto_Sans_Thai } from "next/font/google";
+import { Inter, Noto_Sans_JP, Noto_Sans_Thai } from "next/font/google";
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -141,14 +141,17 @@ export default async function LangLayout({
   const { lang } = await params;
 
   return (
-    <html
-      lang={lang}
-      suppressHydrationWarning
-      // CSS variables for all three fonts are always available;
-      // :lang(th) in globals.css uses --font-noto-sans-thai automatically.
-      className={`${montserrat.variable} ${notoSansJP.variable} ${notoSansThai.variable}`}
-    >
-      <body className="antialiased min-h-screen font-sans">
+    <html lang={lang} suppressHydrationWarning>
+      {/*
+        Font CSS variables are injected on <body> so they are available
+        to all children in the cascade.
+        --font-inter          : Latin / English
+        --font-noto-sans-jp   : Japanese
+        --font-noto-sans-thai : Thai (activated via :lang(th) in globals.css)
+      */}
+      <body
+        className={`${inter.variable} ${notoSansJP.variable} ${notoSansThai.variable} antialiased min-h-screen font-sans`}
+      >
         {children}
       </body>
     </html>

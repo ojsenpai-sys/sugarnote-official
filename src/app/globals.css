@@ -2,7 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: var(--font-montserrat), var(--font-noto-sans-jp), sans-serif;
+  /* Inter → Noto Sans JP → Noto Sans Thai → system-ui fallback */
+  --font-sans: var(--font-inter), var(--font-noto-sans-jp), var(--font-noto-sans-thai), sans-serif;
   --color-pink-50: #FFF5F9;
   --color-pink-100: #FCE7F3;
   --color-pink-200: #FFD1DC;
@@ -33,7 +34,7 @@ body {
   font-family:
     var(--font-noto-sans-thai),
     var(--font-noto-sans-jp),
-    var(--font-montserrat),
+    var(--font-inter),
     ui-sans-serif,
     system-ui,
     sans-serif;
