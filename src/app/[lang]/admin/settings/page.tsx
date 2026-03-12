@@ -9,6 +9,7 @@ import { Toaster, toast } from "react-hot-toast";
 export default function SettingsAdmin() {
   const [heroImage, setHeroImage] = useState("");
   const [calendarId, setCalendarId] = useState("");
+  const [shopifyUrl, setShopifyUrl] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const supabase = createClient();
@@ -24,6 +25,7 @@ export default function SettingsAdmin() {
       if (!error && data) {
         setHeroImage(data.hero_image_url || "");
         setCalendarId(data.calendar_id || "");
+        setShopifyUrl(data.shopify_url || "");
       }
       setLoading(false);
     }
@@ -35,7 +37,7 @@ export default function SettingsAdmin() {
     setSaving(true);
     const { error } = await supabase
       .from("site_settings")
-      .upsert({ id: 1, hero_image_url: heroImage, calendar_id: calendarId, updated_at: new Date().toISOString() });
+      .upsert({ id: 1, hero_image_url: heroImage, calendar_id: calendarId, shopify_url: shopifyUrl, updated_at: new Date().toISOString() });
     
     if (error) {
       toast.error("保存に失敗しました：" + error.message);
@@ -79,6 +81,18 @@ export default function SettingsAdmin() {
              className="w-full max-w-xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
              placeholder="xxx@group.calendar.google.com"
            />
+        </div>
+
+        <div>
+          <h2 className="text-lg font-bold text-slate-800 mb-4 border-b border-pink-100 pb-2">Shopify ストア URL</h2>
+          <p className="text-sm text-slate-500 mb-4">GOODS セクションの「OFFICIAL STORE」ボタンのリンク先 URL です。</p>
+          <input
+            type="url"
+            value={shopifyUrl}
+            onChange={(e) => setShopifyUrl(e.target.value)}
+            className="w-full max-w-xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
+            placeholder="https://your-store.myshopify.com"
+          />
         </div>
       </div>
     </>

@@ -493,9 +493,14 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             )) : <div className="col-span-4 text-center text-slate-400">{dict.goods.comingSoon}</div>}
           </motion.div>
           <div className="mt-12 text-center">
-             <button className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-bold text-sm md:text-base transition-all transform hover:scale-105 shadow-xl shadow-slate-900/20 flex items-center justify-center gap-2 mx-auto tracking-widest">
+            <a
+              href={siteSettings?.shopify_url || "#"}
+              target={siteSettings?.shopify_url ? "_blank" : undefined}
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-bold text-sm md:text-base transition-all transform hover:scale-105 shadow-xl shadow-slate-900/20 tracking-widest"
+            >
               {dict.goods.officialStore} <ChevronRight className="w-5 h-5" />
-            </button>
+            </a>
           </div>
         </div>
       </section>
