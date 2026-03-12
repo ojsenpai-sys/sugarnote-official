@@ -195,9 +195,9 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
           initial="hidden"
           animate="visible"
           variants={fadeIn}
-          className="relative z-10 text-center px-4 w-full max-w-5xl mx-auto -mt-24 sm:-mt-32 md:-mt-48"
+          className="absolute z-10 left-0 right-0 mx-auto px-4 text-center w-full max-w-7xl top-[62%] -translate-y-1/2 md:top-[46%]"
         >
-          <div className="relative w-[360px] sm:w-[600px] md:w-[900px] mx-auto aspect-[3/1]">
+          <div className="relative w-[80vw] max-w-[440px] sm:max-w-[680px] md:max-w-[1000px] mx-auto aspect-[3/1]">
             <Image
               src="/images/logo_ribbon.png"
               alt="SugarNote Logo"
