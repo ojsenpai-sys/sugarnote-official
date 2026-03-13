@@ -195,7 +195,7 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
           initial="hidden"
           animate="visible"
           variants={fadeIn}
-          className="absolute z-10 left-0 right-0 mx-auto px-4 text-center w-full max-w-7xl top-[68%] -translate-y-1/2 md:top-[46%]"
+          className="absolute z-10 left-0 right-0 mx-auto px-4 text-center w-full max-w-7xl top-[75%] -translate-y-1/2 md:top-[46%]"
         >
           <div className="relative w-[95vw] scale-[1.25] md:scale-100 md:w-[1000px] mx-auto aspect-[3/1]">
             <Image
