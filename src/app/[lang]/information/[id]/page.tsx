@@ -109,10 +109,10 @@ export default async function InformationDetailPage({ params }: { params: Promis
             </div>
           )}
 
-          <div 
+          <div
             className="prose prose-lg prose-pink max-w-none text-slate-700
               prose-a:text-pink-500 prose-a:font-bold hover:prose-a:text-pink-600
-              prose-img:rounded-xl prose-img:shadow-md
+              prose-img:rounded-xl prose-img:shadow-md prose-img:w-full prose-img:max-w-2xl prose-img:mx-auto prose-img:block prose-img:h-auto
               prose-headings:text-slate-800 prose-headings:font-bold prose-headings:tracking-tight
               prose-strong:text-slate-800
               prose-p:leading-relaxed"

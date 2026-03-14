@@ -53,6 +53,21 @@ body {
   line-height: 1.8;
 }
 
+/* ── Responsive image constraints ────────────────────────────────────────────
+   Applies to all rich-text (Tiptap/prose) images rendered via
+   dangerouslySetInnerHTML. Prevents oversized images on both mobile and PC.
+   next/image components in bounded containers are unaffected.
+────────────────────────────────────────────────────────────────────────────── */
+.prose img {
+  display: block;
+  width: 100%;
+  max-width: 42rem;   /* ≈ 672px — matches max-w-2xl */
+  height: auto;
+  margin-inline: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
 /* Prose / article body (Tiptap-rendered news content) */
 :lang(th) .prose p,
 :lang(th) .prose li {
