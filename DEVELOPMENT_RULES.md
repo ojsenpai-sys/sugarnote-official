@@ -89,6 +89,41 @@ siteConfig.defaultLocale // デフォルトロケール
 - 設定フィールドを追加した場合は、`README.md` の「Step 4」の説明と本ファイルの上記リストを更新する。
 - コンポーネント・レイアウトファイル内でグループ名や SNS URL を直接文字列で書くことを禁止する。必ず `siteConfig.*` を参照すること。
 
+### Shopify URL 正規化ルール
+
+管理画面・DB・`siteConfig` に Shopify URL を保存・使用する際は、以下を必ず確認すること。
+
+| チェック項目 | 正しい例 | 誤った例 |
+|---|---|---|
+| ストア名のスペルミス | `sugarnote.myshopify.com` | `sugarnoto.myshopify.com` |
+| `/password` サフィックスの除去 | `https://sugarnote.myshopify.com` | `https://sugarnote.myshopify.com/password` |
+| 末尾スラッシュの統一（なし） | `https://sugarnote.myshopify.com` | `https://sugarnote.myshopify.com/` |
+| カスタムドメインの優先 | `https://shop.sugarnote.jp` | `https://sugarnote.myshopify.com` |
+
+**DB 修正 SQL テンプレート**（新PJで同様のミスが発生した場合に使用）：
+
+```sql
+-- ストア名スペルミス修正 & /password 除去（テーブル名・カラム名は適宜変更）
+UPDATE goods
+SET store_url = regexp_replace(
+  regexp_replace(store_url, '旧ストア名', '正ストア名', 'g'),
+  '/password$', '', 'g'
+)
+WHERE store_url ILIKE '%旧ストア名%' OR store_url ILIKE '%/password';
+
+UPDATE site_settings
+SET shopify_url = regexp_replace(
+  regexp_replace(shopify_url, '旧ストア名', '正ストア名', 'g'),
+  '/password$', '', 'g'
+)
+WHERE shopify_url ILIKE '%旧ストア名%' OR shopify_url ILIKE '%/password';
+```
+
+**運用フロー**：
+1. 管理画面 `/admin/settings` で Shopify URL を入力する際、上記チェック項目を目視確認する
+2. Shopify ストアのパスワード保護を解除してから URL を登録する
+3. 登録後、フロントエンドのリンクが正しく飛ぶことをブラウザで確認する
+
 ---
 
 ## 4. RichTextEditor — 画像挿入の標準仕様
