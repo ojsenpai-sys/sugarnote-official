@@ -17,6 +17,7 @@ export default function GoodsAdmin() {
   const [imageUrl, setImageUrl] = useState("");
   const [storeUrl, setStoreUrl] = useState("");
   const [isSoldOut, setIsSoldOut] = useState(false);
+  const [sortOrder, setSortOrder] = useState("0");
   const [saving, setSaving] = useState(false);
 
   const supabase = createClient();
@@ -25,7 +26,7 @@ export default function GoodsAdmin() {
 
   const fetchData = async () => {
     setLoading(true);
-    const { data } = await supabase.from("goods").select("*").order("created_at", { ascending: false });
+    const { data } = await supabase.from("goods").select("*").order("sort_order", { ascending: true });
     if (data) setItems(data);
     setLoading(false);
   };
@@ -38,9 +39,10 @@ export default function GoodsAdmin() {
       setImageUrl(item.image_url || "");
       setStoreUrl(item.store_url || "");
       setIsSoldOut(item.is_sold_out || false);
+      setSortOrder((item.sort_order ?? 0).toString());
     } else {
       setEditingId("new");
-      setName(""); setPrice("0"); setImageUrl(""); setStoreUrl(""); setIsSoldOut(false);
+      setName(""); setPrice("0"); setImageUrl(""); setStoreUrl(""); setIsSoldOut(false); setSortOrder("0");
     }
   };
 
@@ -49,7 +51,7 @@ export default function GoodsAdmin() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    const payload = { name, price: parseInt(price), image_url: imageUrl, store_url: storeUrl, is_sold_out: isSoldOut };
+    const payload = { name, price: parseInt(price), image_url: imageUrl, store_url: storeUrl, is_sold_out: isSoldOut, sort_order: parseInt(sortOrder) };
     const res = editingId === "new" ? await supabase.from("goods").insert([payload]) : await supabase.from("goods").update(payload).eq("id", editingId);
     if (res.error) toast.error("保存失敗：" + res.error.message);
     else { toast.success("保存しました！"); closeForm(); fetchData(); }
@@ -70,9 +72,12 @@ export default function GoodsAdmin() {
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
           <div className="flex items-center justify-between mb-6 border-b border-pink-100 pb-4"><h2 className="text-xl font-bold text-slate-800">{editingId === "new" ? "新規作成" : "編集"}</h2><button onClick={closeForm} className="text-slate-400 hover:text-slate-600 p-2"><X className="w-6 h-6" /></button></div>
           <form onSubmit={handleSave} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div><label className="block text-sm font-bold text-slate-700 mb-2">商品名</label><input type="text" value={name} onChange={e => setName(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 text-slate-800" /></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-2"><label className="block text-sm font-bold text-slate-700 mb-2">商品名</label><input type="text" value={name} onChange={e => setName(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 text-slate-800" /></div>
               <div><label className="block text-sm font-bold text-slate-700 mb-2">価格 (円)</label><input type="number" value={price} onChange={e => setPrice(e.target.value)} required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 text-slate-800" /></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div><label className="block text-sm font-bold text-slate-700 mb-2">表示順 <span className="text-slate-400 font-normal">(小さい順に表示)</span></label><input type="number" value={sortOrder} onChange={e => setSortOrder(e.target.value)} min="0" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 text-slate-800" /></div>
             </div>
             <div><label className="block text-sm font-bold text-slate-700 mb-2">商品画像</label><ImageUpload value={imageUrl} onChange={setImageUrl} folder="goods" /></div>
             <div><label className="block text-sm font-bold text-slate-700 mb-2">ECサイトURL</label><input type="url" value={storeUrl} onChange={e => setStoreUrl(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 text-slate-800" placeholder="https://..." /></div>
@@ -84,9 +89,9 @@ export default function GoodsAdmin() {
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
           {loading ? <div className="p-8 text-center text-slate-500">読み込み中...</div> : items.length === 0 ? <div className="p-8 text-center text-slate-500">データがありません。</div> : (
             <table className="w-full text-left border-collapse">
-              <thead><tr className="bg-slate-50 border-b border-slate-100"><th className="p-4 text-sm font-bold text-slate-500">商品</th><th className="p-4 text-sm font-bold text-slate-500">価格</th><th className="p-4 text-sm font-bold text-slate-500">ステータス</th><th className="p-4 text-sm font-bold text-slate-500 text-right">操作</th></tr></thead>
+              <thead><tr className="bg-slate-50 border-b border-slate-100"><th className="p-4 text-sm font-bold text-slate-500 w-16 text-center">順</th><th className="p-4 text-sm font-bold text-slate-500">商品</th><th className="p-4 text-sm font-bold text-slate-500">価格</th><th className="p-4 text-sm font-bold text-slate-500">ステータス</th><th className="p-4 text-sm font-bold text-slate-500 text-right">操作</th></tr></thead>
               <tbody>{items.map(item => (
-                <tr key={item.id} className="border-b border-slate-50 hover:bg-slate-50/50"><td className="p-4 flex items-center gap-3">{item.image_url && <img src={item.image_url} className="w-10 h-10 rounded object-cover" alt="" />}<span className="font-bold text-slate-800">{item.name}</span></td><td className="p-4 text-slate-600 font-medium">¥{item.price.toLocaleString()}</td><td className="p-4">{item.is_sold_out ? <span className="text-red-500 text-xs font-bold bg-red-50 px-2 py-1 rounded">SOLD OUT</span> : <span className="text-green-500 text-xs font-bold bg-green-50 px-2 py-1 rounded">販売中</span>}</td><td className="p-4 text-right"><button onClick={() => openForm(item)} className="p-2 text-slate-400 hover:text-pink-500"><Edit2 className="w-4 h-4 inline" /></button><button onClick={() => handleDelete(item.id)} className="p-2 text-slate-400 hover:text-red-500"><Trash2 className="w-4 h-4 inline" /></button></td></tr>
+                <tr key={item.id} className="border-b border-slate-50 hover:bg-slate-50/50"><td className="p-4 text-center text-slate-400 font-bold text-sm">{item.sort_order ?? 0}</td><td className="p-4 flex items-center gap-3">{item.image_url && <img src={item.image_url} className="w-10 h-10 rounded object-cover" alt="" />}<span className="font-bold text-slate-800">{item.name}</span></td><td className="p-4 text-slate-600 font-medium">¥{item.price.toLocaleString()}</td><td className="p-4">{item.is_sold_out ? <span className="text-red-500 text-xs font-bold bg-red-50 px-2 py-1 rounded">SOLD OUT</span> : <span className="text-green-500 text-xs font-bold bg-green-50 px-2 py-1 rounded">販売中</span>}</td><td className="p-4 text-right"><button onClick={() => openForm(item)} className="p-2 text-slate-400 hover:text-pink-500"><Edit2 className="w-4 h-4 inline" /></button><button onClick={() => handleDelete(item.id)} className="p-2 text-slate-400 hover:text-red-500"><Trash2 className="w-4 h-4 inline" /></button></td></tr>
               ))}</tbody>
             </table>
           )}

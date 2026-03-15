@@ -40,7 +40,7 @@ export default async function Page({
       supabase
         .from("goods")
         .select("*")
-        .order("created_at", { ascending: false })
+        .order("sort_order", { ascending: true })
         .limit(4),
       supabase
         .from("videos")
