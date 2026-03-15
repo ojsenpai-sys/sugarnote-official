@@ -26,6 +26,7 @@ import { submitContactForm } from "@/app/actions/contact";
 import type { Dictionary } from "@/dictionaries";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { MEMBERS_META } from "@/constants/members";
+import { siteConfig } from "@/config/site";
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -574,13 +575,13 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
                 <span className="font-extrabold text-2xl tracking-tighter text-white">SugarNote</span>
               </div>
               <div className="flex gap-4 justify-center md:justify-start">
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all text-slate-300">
+                <a href={siteConfig.sns.youtube} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all text-slate-300">
                   <Youtube className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all text-slate-300">
+                <a href={siteConfig.sns.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all text-slate-300">
                   <Twitter className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all text-slate-300">
+                <a href={siteConfig.sns.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all text-slate-300">
                   <Instagram className="w-5 h-5" />
                 </a>
               </div>

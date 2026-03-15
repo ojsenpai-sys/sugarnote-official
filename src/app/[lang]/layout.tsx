@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP, Noto_Sans_Thai } from "next/font/google";
+import { siteConfig } from "@/config/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,13 +29,6 @@ const ogLocale: Record<string, string> = {
   th: "th_TH",
 };
 
-// ── per-locale descriptions ──────────────────────────────────────────────────
-const descriptions: Record<string, string> = {
-  ja: "「Pure. Bright. Unstoppable.」日本人の精神性を主軸に、緻密で繊細なクリエイティブを展開するアイドルグループSugarNote（シュガーノート）のオフィシャルサイト。",
-  en: "SugarNote — a Japanese idol group expressing creativity rooted in the spirit of Japan. Pure. Bright. Unstoppable.",
-  th: "SugarNote — กลุ่มไอดอลญี่ปุ่นที่สร้างสรรค์ผลงานโดยยึดจิตวิญญาณของชาวญี่ปุ่นเป็นแกนหลัก Pure. Bright. Unstoppable.",
-};
-
 // ── generateMetadata ─────────────────────────────────────────────────────────
 export async function generateMetadata({
   params,
@@ -42,67 +36,41 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://sugarnote.jp";
+  const { url, name, ogImage, descriptions, keywords, authors, creator, publisher, twitterHandle } = siteConfig;
 
-  const desc = descriptions[lang] ?? descriptions.ja;
+  const desc = descriptions[lang] ?? descriptions[siteConfig.defaultLocale];
 
   return {
-    metadataBase: new URL(baseUrl),
+    metadataBase: new URL(url),
 
     // ── Basic ──────────────────────────────────────────────────────────────
     title: {
-      default: "SugarNote Official Website",
-      template: "%s | SugarNote Official",
+      default: `${name} Official Website`,
+      template: `%s | ${name} Official`,
     },
     description: desc,
-    keywords: [
-      "SugarNote",
-      "シュガーノート",
-      "アイドル",
-      "idol",
-      "オフィシャルサイト",
-      "坂東日奈多",
-      "西条藍里",
-      "白咲里莉穂",
-      "櫻井那奈子",
-      "坂東楓夏",
-    ],
-    authors: [
-      { name: "SugarNote Management" },
-      { name: "ANCHOR (Music Production)" },
-      { name: "中村泰輔 (Music Production)" },
-      { name: "LINDO (Visual Direction)" },
-    ],
-    creator: "SugarNote Project",
-    publisher: "SugarNote Publisher",
+    keywords: [...keywords],
+    authors: [...authors],
+    creator,
+    publisher,
     formatDetection: { email: false, address: false, telephone: false },
 
     // ── hreflang / canonical ────────────────────────────────────────────────
     alternates: {
-      canonical: `${baseUrl}/${lang}`,
-      languages: {
-        ja:          `${baseUrl}/ja`,
-        en:          `${baseUrl}/en`,
-        th:          `${baseUrl}/th`,
-        "x-default": `${baseUrl}/ja`,
-      },
+      canonical: `${url}/${lang}`,
+      languages: Object.fromEntries([
+        ...siteConfig.locales.map((l) => [l, `${url}/${l}`]),
+        ["x-default", `${url}/${siteConfig.defaultLocale}`],
+      ]),
     },
 
     // ── Open Graph ─────────────────────────────────────────────────────────
     openGraph: {
-      title: "SugarNote Official Website",
+      title: `${name} Official Website`,
       description: desc,
-      url: `${baseUrl}/${lang}`,
-      siteName: "SugarNote Official",
-      images: [
-        {
-          url: "/images/group_main.jpg",
-          width: 1200,
-          height: 630,
-          alt: "SugarNote Main Visual",
-        },
-      ],
+      url: `${url}/${lang}`,
+      siteName: `${name} Official`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${name} Main Visual` }],
       locale: ogLocale[lang] ?? "ja_JP",
       type: "website",
     },
@@ -110,10 +78,10 @@ export async function generateMetadata({
     // ── Twitter / X ────────────────────────────────────────────────────────
     twitter: {
       card: "summary_large_image",
-      title: "SugarNote Official Website",
+      title: `${name} Official Website`,
       description: desc,
-      images: ["/images/group_main.jpg"],
-      creator: "@SugarNote_Info",
+      images: [ogImage],
+      creator: twitterHandle,
     },
 
     // ── Icons ──────────────────────────────────────────────────────────────
@@ -127,7 +95,7 @@ export async function generateMetadata({
 
 // ── Static params ────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
-  return [{ lang: "ja" }, { lang: "en" }, { lang: "th" }];
+  return siteConfig.locales.map((lang) => ({ lang }));
 }
 
 // ── Layout ───────────────────────────────────────────────────────────────────
