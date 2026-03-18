@@ -54,6 +54,9 @@ CREATE OR REPLACE VIEW news_localized AS
     COALESCE(n.content_i18n ->> lang.value, n.content) AS content_localized
   FROM news n, (VALUES ('ja'), ('en'), ('th')) AS lang(value);
 
+-- §7-1: security_invoker prevents RLS bypass via view definer privileges
+ALTER VIEW news_localized SET (security_invoker = on);
+
 
 -- Discography (singles, albums, etc.)
 CREATE TABLE IF NOT EXISTS discography (
@@ -153,6 +156,10 @@ CREATE POLICY IF NOT EXISTS "videos: public read"
 CREATE POLICY IF NOT EXISTS "contacts: anon insert"
   ON contacts FOR INSERT TO anon WITH CHECK (true);
 
+-- contacts: authenticated users (admins) can read and manage all submissions
+CREATE POLICY IF NOT EXISTS "contacts: authenticated all"
+  ON contacts FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- 3. STORAGE BUCKETS
@@ -194,6 +201,11 @@ CREATE POLICY IF NOT EXISTS "news-images: auth delete"
   USING (bucket_id = 'news-images');
 
 
+-- =============================================================================
+-- Security checklist (§7 of DEVELOPMENT_RULES.md):
+--   [x] All tables have RLS enabled
+--   [x] news_localized view has security_invoker = on
+--   [x] contacts has both anon INSERT and authenticated ALL policies
 -- =============================================================================
 -- Done.  Visit your project's Supabase dashboard to verify tables and buckets.
 -- =============================================================================

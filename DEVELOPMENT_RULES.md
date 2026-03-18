@@ -180,10 +180,68 @@ AI・開発者がコードを追加・修正する際は、以下を必ず確認
 4. **seed.sql** — Supabase スキーマを変更した場合、`seed.sql` を更新したか
 5. **README.md** — 設定手順に影響する変更の場合、ドキュメントを更新したか
 6. **RichTextEditor** — 画像挿入は §4 の標準仕様（ファイル選択・D&D）を使用しているか
+7. **セキュリティ** — §7 の RLS・View・ポリシー要件を満たしているか
 
 ---
 
-## 7. 新プロジェクト展開チェックリスト（要約）
+## 7. セキュリティ規約
+
+> **目的**: Supabase のデータ漏洩・権限昇格を防ぐ最低限のセキュリティ基準を全プロジェクトで統一する。
+
+### 7-1. View の security_invoker
+
+**全ての View 作成・修正時に `security_invoker = on` を必須とする。**
+
+`security_invoker = on` がない View はビューの定義者権限で実行されるため、RLS をバイパスしてデータが漏洩するリスクがある。
+
+```sql
+-- View 作成後に必ず実行する
+ALTER VIEW ビュー名 SET (security_invoker = on);
+
+-- 例: news_localized ビュー
+ALTER VIEW news_localized SET (security_invoker = on);
+```
+
+### 7-2. テーブルの RLS 必須化
+
+**新規テーブル作成時は、CREATE TABLE の直後に必ず RLS を有効化する。**
+
+```sql
+CREATE TABLE IF NOT EXISTS my_table ( ... );
+ALTER TABLE my_table ENABLE ROW LEVEL SECURITY;  -- 必須・忘れ禁止
+```
+
+- seed.sql 内の全テーブルに `ALTER TABLE ... ENABLE ROW LEVEL SECURITY;` が記述されていること
+- 既存プロジェクトで RLS がオフのテーブルが判明した場合は即時有効化すること
+
+### 7-3. contacts テーブルの標準ポリシー
+
+お問い合わせフォーム用 `contacts` テーブルには以下 **2ポリシーを必ず両方** 設定すること：
+
+```sql
+-- 非ログインユーザー: フォーム投稿のみ許可（閲覧不可）
+CREATE POLICY IF NOT EXISTS "contacts: anon insert"
+  ON contacts FOR INSERT TO anon WITH CHECK (true);
+
+-- 認証済みユーザー（管理者）: 全操作許可（閲覧・削除等）
+CREATE POLICY IF NOT EXISTS "contacts: authenticated all"
+  ON contacts FOR ALL TO authenticated USING (true) WITH CHECK (true);
+```
+
+### 7-4. SQL 生成時の自動チェックリスト
+
+Supabase 関連 SQL を生成する際は以下を自動的に含めること：
+
+| 対象 | 必須処理 |
+|---|---|
+| 新規テーブル | `ALTER TABLE ... ENABLE ROW LEVEL SECURITY;` |
+| 新規 View | `ALTER VIEW ... SET (security_invoker = on);` |
+| contacts 系テーブル | `anon INSERT` + `authenticated ALL` の2ポリシー |
+| 管理者専用テーブル | `authenticated ALL` ポリシー（anon アクセスなし） |
+
+---
+
+## 8. 新プロジェクト展開チェックリスト（要約）
 
 ```
 [ ] src/config/site.ts を新アーティスト用に書き換え
@@ -200,4 +258,4 @@ AI・開発者がコードを追加・修正する際は、以下を必ず確認
 
 ---
 
-*最終更新: 2026-03-16 — SpeedStar Dev Team*
+*最終更新: 2026-03-18 — SpeedStar Dev Team*
