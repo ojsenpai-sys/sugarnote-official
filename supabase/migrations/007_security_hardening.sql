@@ -17,5 +17,7 @@ ALTER TABLE videos          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE contacts        ENABLE ROW LEVEL SECURITY;
 
 -- ── 3. contacts: add authenticated ALL policy ─────────────────────────────
-CREATE POLICY IF NOT EXISTS "contacts: authenticated all"
+-- Note: CREATE POLICY IF NOT EXISTS requires PG15+. Use DROP+CREATE instead.
+DROP POLICY IF EXISTS "contacts: authenticated all" ON contacts;
+CREATE POLICY "contacts: authenticated all"
   ON contacts FOR ALL TO authenticated USING (true) WITH CHECK (true);
