@@ -40,6 +40,7 @@ export default async function Page({
       supabase
         .from("goods")
         .select("*")
+        .eq("status", "published")
         .order("sort_order", { ascending: true })
         .limit(4),
       supabase

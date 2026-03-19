@@ -480,8 +480,10 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             variants={staggerContainer}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
           >
-            {goods.length > 0 ? goods.map((item) => (
-              <motion.a key={item.id} href={item.store_url || "#"} target="_blank" rel="noopener noreferrer" variants={fadeIn} className="group cursor-pointer block">
+            {goods.length > 0 ? goods.map((item) => {
+              const storeHref = item.store_url && /^https?:\/\//i.test(item.store_url) ? item.store_url : item.store_url ? `https://${item.store_url}` : null;
+              return (
+              <motion.a key={item.id} href={storeHref || "#"} target={storeHref ? "_blank" : undefined} rel="noopener noreferrer" variants={fadeIn} className="group cursor-pointer block">
                 <div className="aspect-square bg-slate-50 rounded-2xl mb-4 flex items-center justify-center relative overflow-hidden border border-slate-100">
                   {item.image_url ? (
                     <Image src={item.image_url} alt={item.name} fill className="object-cover" />
@@ -496,7 +498,8 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
                 <h3 className="font-bold text-sm md:text-base text-slate-800 group-hover:text-pink-500 transition-colors line-clamp-2">{item.name}</h3>
                 <p className="text-slate-500 text-sm font-medium mt-1">¥{item.price.toLocaleString()}</p>
               </motion.a>
-            )) : <div className="col-span-4 text-center text-slate-400">{dict.goods.comingSoon}</div>}
+              );
+            }) : <div className="col-span-4 text-center text-slate-400">{dict.goods.comingSoon}</div>}
           </motion.div>
           <div className="mt-12 text-center">
             <a
