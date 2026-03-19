@@ -10,3 +10,9 @@ UPDATE goods SET status = 'published' WHERE status IS NULL;
 
 -- Index for efficient filtering on the public page
 CREATE INDEX IF NOT EXISTS idx_goods_status ON goods(status);
+
+-- ── Fix store_url typo: sugarnoto → sugarnote ──────────────────────────────
+-- Items added after migration 006 may still have the wrong domain
+UPDATE goods
+SET store_url = replace(store_url, 'sugarnoto.myshopify.com', 'sugarnote.myshopify.com')
+WHERE store_url ILIKE '%sugarnoto.myshopify.com%';

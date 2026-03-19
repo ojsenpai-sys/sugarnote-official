@@ -481,23 +481,54 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
           >
             {goods.length > 0 ? goods.map((item) => {
-              const storeHref = item.store_url && /^https?:\/\//i.test(item.store_url) ? item.store_url : item.store_url ? `https://${item.store_url}` : null;
-              return (
-              <motion.a key={item.id} href={storeHref || "#"} target={storeHref ? "_blank" : undefined} rel="noopener noreferrer" variants={fadeIn} className="group cursor-pointer block">
-                <div className="aspect-square bg-slate-50 rounded-2xl mb-4 flex items-center justify-center relative overflow-hidden border border-slate-100">
-                  {item.image_url ? (
-                    <Image src={item.image_url} alt={item.name} fill className="object-cover" />
-                  ) : (
-                    <>
-                      <div className="absolute inset-0 bg-pink-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <ShoppingBag className="w-12 h-12 text-slate-300 group-hover:text-pink-400 group-hover:scale-110 transition-all duration-300 z-10" />
-                    </>
+              const raw = item.store_url ?? "";
+              const storeHref = raw
+                ? /^https?:\/\//i.test(raw) ? raw : `https://${raw}`
+                : null;
+              console.log(`[Goods] id=${item.id} name="${item.name}" store_url="${raw}" → resolved="${storeHref ?? "(none)"}"`);
+              const cardInner = (
+                <>
+                  <div className="aspect-square bg-slate-50 rounded-2xl mb-4 flex items-center justify-center relative overflow-hidden border border-slate-100">
+                    {item.image_url ? (
+                      <Image src={item.image_url} alt={item.name} fill className="object-cover" />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-pink-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <ShoppingBag className="w-12 h-12 text-slate-300 group-hover:text-pink-400 group-hover:scale-110 transition-all duration-300 z-10" />
+                      </>
+                    )}
+                    {item.is_sold_out && <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-10 flex items-center justify-center"><span className="bg-red-500 text-white font-black px-4 py-2 rounded-lg text-sm rotate-[-15deg] shadow-lg border-2 border-white">{dict.goods.soldOut}</span></div>}
+                  </div>
+                  <h3 className="font-bold text-sm md:text-base text-slate-800 group-hover:text-pink-500 transition-colors line-clamp-2">{item.name}</h3>
+                  <p className="text-slate-500 text-sm font-medium mt-1">¥{item.price.toLocaleString()}</p>
+                  {storeHref && (
+                    <a
+                      href={storeHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-pink-500 hover:text-pink-700 transition-colors"
+                    >
+                      ショップで見る <ChevronRight className="w-3 h-3" />
+                    </a>
                   )}
-                  {item.is_sold_out && <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-10 flex items-center justify-center"><span className="bg-red-500 text-white font-black px-4 py-2 rounded-lg text-sm rotate-[-15deg] shadow-lg border-2 border-white">{dict.goods.soldOut}</span></div>}
-                </div>
-                <h3 className="font-bold text-sm md:text-base text-slate-800 group-hover:text-pink-500 transition-colors line-clamp-2">{item.name}</h3>
-                <p className="text-slate-500 text-sm font-medium mt-1">¥{item.price.toLocaleString()}</p>
-              </motion.a>
+                </>
+              );
+              return storeHref ? (
+                <motion.a
+                  key={item.id}
+                  href={storeHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={fadeIn}
+                  className="group cursor-pointer block"
+                >
+                  {cardInner}
+                </motion.a>
+              ) : (
+                <motion.div key={item.id} variants={fadeIn} className="group block">
+                  {cardInner}
+                </motion.div>
               );
             }) : <div className="col-span-4 text-center text-slate-400">{dict.goods.comingSoon}</div>}
           </motion.div>

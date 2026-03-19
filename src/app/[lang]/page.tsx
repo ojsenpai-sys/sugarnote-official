@@ -56,6 +56,12 @@ export default async function Page({
     discography   = results[2].data ?? [];
     goods         = results[3].data ?? [];
     videos        = results[4].data ?? [];
+    // DEBUG: log resolved store URLs (visible in Next.js server terminal)
+    goods.forEach((g: any) => {
+      const raw = g.store_url ?? "";
+      const resolved = raw ? (/^https?:\/\//i.test(raw) ? raw : `https://${raw}`) : "(none)";
+      console.log(`[Goods:server] id=${g.id} name="${g.name}" store_url="${raw}" → "${resolved}"`);
+    });
   } catch (err) {
     console.error("Fetch exception in Page.tsx:", err);
   }
