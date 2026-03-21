@@ -24,7 +24,7 @@ export default async function Page({
 
   try {
     const results = await Promise.all([
-      supabase.from("site_settings").select("*").eq("id", 1).single(),
+      supabase.from("sn_site_settings").select("*").eq("id", 1).single(),
       supabase
         .from("sn_news")
         .select("*, title_i18n, content_i18n")

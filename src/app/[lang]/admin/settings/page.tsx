@@ -18,7 +18,7 @@ export default function SettingsAdmin() {
   useEffect(() => {
     async function loadSettings() {
       const { data, error } = await supabase
-        .from("site_settings")
+        .from("sn_site_settings")
         .select("*")
         .eq("id", 1)
         .single();
@@ -38,7 +38,7 @@ export default function SettingsAdmin() {
     e.preventDefault();
     setSaving(true);
     const { error } = await supabase
-      .from("site_settings")
+      .from("sn_site_settings")
       .upsert({ id: 1, hero_image_url: heroImage, calendar_id: calendarId, timetree_url: timetreeUrl, shopify_url: shopifyUrl, updated_at: new Date().toISOString() });
     
     if (error) {
