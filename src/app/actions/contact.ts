@@ -13,7 +13,7 @@ export async function submitContactForm(formData: FormData) {
       return { success: false, message: "必須項目が不足しています" };
     }
 
-    const { error } = await supabaseAdmin.from("contacts").insert([
+    const { error } = await supabaseAdmin.from("sn_contacts").insert([
       { name, email, message, type, company_name }
     ]);
 
