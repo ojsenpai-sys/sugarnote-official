@@ -82,7 +82,7 @@ if (oldErr && (oldErr.code === "42P01" || oldErr.code === "PGRST205")) {
 
 // ── 5. 主要テーブル疎通 ──────────────────────────────
 console.log(`\n${BOLD}[5] 主要テーブル疎通${RESET}`);
-const tables = ["goods", "news", "discography", "videos", "site_settings"];
+const tables = ["sn_news", "sn_goods", "discography", "videos", "site_settings"];
 for (const t of tables) {
   const { error } = await admin.from(t).select("*", { count: "exact", head: true });
   if (error) { ng(`${t}: ${error.message}`); issues++; }

@@ -46,7 +46,7 @@ export default function NewsAdmin() {
   const fetchNews = async () => {
     setLoading(true);
     const { data } = await supabase
-      .from("news")
+      .from("sn_news")
       .select("*, title_i18n, content_i18n")
       .order("published_on", { ascending: false });
     if (data) setNews(data);
@@ -153,7 +153,7 @@ export default function NewsAdmin() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("本当に削除しますか？")) return;
-    const { error } = await supabase.from("news").delete().eq("id", id);
+    const { error } = await supabase.from("sn_news").delete().eq("id", id);
     if (error) {
       toast.error("削除に失敗しました：" + error.message);
     } else {

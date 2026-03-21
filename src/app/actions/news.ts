@@ -46,10 +46,10 @@ export async function submitNewsAction(formData: FormData) {
     let error;
 
     if (id && id !== "new") {
-      const res = await supabaseAdmin.from("news").update(payload).eq("id", id);
+      const res = await supabaseAdmin.from("sn_news").update(payload).eq("id", id);
       error = res.error;
     } else {
-      const res = await supabaseAdmin.from("news").insert([payload]);
+      const res = await supabaseAdmin.from("sn_news").insert([payload]);
       error = res.error;
     }
 

@@ -9,8 +9,8 @@ export default async function AdminDashboard() {
     { count: goodsCount },
     { count: discoCount }
   ] = await Promise.all([
-    supabase.from("news").select("*", { count: "exact", head: true }),
-    supabase.from("goods").select("*", { count: "exact", head: true }),
+    supabase.from("sn_news").select("*", { count: "exact", head: true }),
+    supabase.from("sn_goods").select("*", { count: "exact", head: true }),
     supabase.from("discography").select("*", { count: "exact", head: true }),
   ]);
 

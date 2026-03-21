@@ -27,7 +27,7 @@ export default function GoodsAdmin() {
 
   const fetchData = async () => {
     setLoading(true);
-    const { data } = await supabase.from("goods").select("*").order("sort_order", { ascending: true });
+    const { data } = await supabase.from("sn_goods").select("*").order("sort_order", { ascending: true });
     if (data) setItems(data);
     setLoading(false);
   };
@@ -54,7 +54,7 @@ export default function GoodsAdmin() {
     e.preventDefault();
     setSaving(true);
     const payload = { name, price: parseInt(price), image_url: imageUrl, store_url: storeUrl, is_sold_out: isSoldOut, status, sort_order: parseInt(sortOrder) };
-    const res = editingId === "new" ? await supabase.from("goods").insert([payload]) : await supabase.from("goods").update(payload).eq("id", editingId);
+    const res = editingId === "new" ? await supabase.from("sn_goods").insert([payload]) : await supabase.from("sn_goods").update(payload).eq("id", editingId);
     if (res.error) toast.error("保存失敗：" + res.error.message);
     else { toast.success("保存しました！"); closeForm(); fetchData(); }
     setSaving(false);
@@ -62,7 +62,7 @@ export default function GoodsAdmin() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("本当に削除しますか？")) return;
-    const { error } = await supabase.from("goods").delete().eq("id", id);
+    const { error } = await supabase.from("sn_goods").delete().eq("id", id);
     if (!error) { toast.success("削除しました"); fetchData(); }
   };
 

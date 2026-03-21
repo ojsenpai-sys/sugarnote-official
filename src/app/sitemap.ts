@@ -33,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── 2. Dynamic news detail pages ─────────────────────────────────────────
   const { data: newsItems, error } = await supabaseAdmin
-    .from("news")
+    .from("sn_news")
     .select("id, published_at, updated_at")
     .eq("status", "published")
     .lte("published_at", new Date().toISOString())

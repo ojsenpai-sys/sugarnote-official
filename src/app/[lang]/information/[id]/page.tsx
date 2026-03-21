@@ -19,7 +19,7 @@ export default async function InformationDetailPage({ params }: { params: Promis
   let newsItem = null;
   try {
     const { data, error } = await supabase
-      .from("news")
+      .from("sn_news")
       .select("*, title_i18n, content_i18n")
       .eq("id", id)
       .eq("status", "published")
