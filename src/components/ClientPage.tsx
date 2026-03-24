@@ -302,10 +302,11 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             {/* Explicit height avoids aspect-ratio:0 bugs on some browsers */}
             <div className="w-full h-[480px] md:h-[620px] bg-slate-50 rounded-2xl overflow-hidden border border-pink-100">
               <iframe
-                src={
-                  siteSettings?.timetree_url ||
-                  "https://timetreeapp.com/public_calendars/sugarnote_ofc/widget"
-                }
+                src={(() => {
+                  const base = siteSettings?.timetree_url || "https://timetreeapp.com/public_calendars/sugarnote_ofc/widget";
+                  if (base.includes("color=")) return base;
+                  return base + (base.includes("?") ? "&" : "?") + "color=EC4899";
+                })()}
                 style={{ border: 0 }}
                 width="100%"
                 height="100%"
