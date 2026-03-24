@@ -303,7 +303,7 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             <div className="w-full h-[480px] md:h-[620px] bg-slate-50 rounded-2xl overflow-hidden border border-pink-100">
               <iframe
                 src={(() => {
-                  const pink = "EC4899";
+                  const pink = "F9A8D4";
                   let base = siteSettings?.timetree_url || "https://timetreeapp.com/public_calendars/sugarnote_ofc/widget";
                   if (base.includes("frame_color=")) {
                     return base.replace(/frame_color=%23[a-fA-F0-9]{6}/i, `frame_color=%23${pink}`);
