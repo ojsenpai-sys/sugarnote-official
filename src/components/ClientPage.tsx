@@ -593,7 +593,18 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
                 <label className="block text-sm font-bold text-slate-700 mb-2">{dict.contact.message} <span className="text-pink-500">{dict.contact.required}</span></label>
                 <textarea name="message" required rows={5} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all resize-none" placeholder={dict.contact.messagePlaceholder}></textarea>
               </div>
-              <div className="text-center pt-4">
+              <p className="text-center text-sm text-slate-500">
+                <a
+                  href={`/${lang}/privacy`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pink-500 hover:text-pink-600 underline underline-offset-2 transition-colors font-medium"
+                >
+                  プライバシーポリシー
+                </a>
+                {" "}に同意の上、送信してください。
+              </p>
+              <div className="text-center pt-2">
                 <button type="submit" disabled={isSubmitting} className="px-12 py-4 bg-pink-500 hover:bg-pink-600 disabled:bg-pink-300 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-pink-500/30 w-full md:w-auto tracking-widest flex items-center justify-center gap-2 mx-auto disabled:hover:scale-100 disabled:cursor-not-allowed">
                   <MessageSquare className="w-5 h-5" /> {isSubmitting ? dict.contact.submitting : dict.contact.submit}
                 </button>
@@ -639,8 +650,8 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
 
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
             <div className="flex gap-4">
-              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.privacy}</a>
-              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.terms}</a>
+              <Link href={`/${lang}/terms`} className="hover:text-pink-400 transition-colors">{dict.footer.terms}</Link>
+              <Link href={`/${lang}/privacy`} className="hover:text-pink-400 transition-colors">{dict.footer.privacy}</Link>
               <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.company}</a>
             </div>
             <p>{dict.footer.copyright}</p>
