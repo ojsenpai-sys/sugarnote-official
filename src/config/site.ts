@@ -21,14 +21,14 @@ export const siteConfig = {
   // ── Group-level SNS ───────────────────────────────────────────────────────
   /** Replace # with actual URLs before launch */
   sns: {
-    youtube:   "https://www.youtube.com/@sugarnote",
-    twitter:   "https://x.com/SugarNote_Info",
-    instagram: "https://www.instagram.com/sugarnote_official/",
+    youtube:   "https://www.youtube.com/@SugarNote_OFC",
+    twitter:   "https://x.com/sugarnote_ofc?s=21",
+    instagram: "https://www.instagram.com/sugarnote_ofc?igsh=MTFyMThqaHhkd2kzag%3D%3D&utm_source=qr",
   },
 
   // ── SEO / Metadata ────────────────────────────────────────────────────────
   /** Twitter/X handle used in twitter:creator meta tag */
-  twitterHandle: "@SugarNote_Info",
+  twitterHandle: "@sugarnote_ofc",
   /** Default OG / Twitter card image (relative to /public) */
   ogImage: "/images/group_main.jpg",
 
