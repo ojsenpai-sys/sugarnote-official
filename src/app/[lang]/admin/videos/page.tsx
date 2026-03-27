@@ -22,8 +22,8 @@ export default function VideosAdmin() {
   const [saving, setSaving] = useState(false);
 
   const supabase = createClient();
-
-  useEffect(() => { fetchData(); }, [supabase]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchData(); }, []);
 
   const fetchData = async () => {
     setLoading(true);
@@ -50,7 +50,13 @@ export default function VideosAdmin() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    const payload = { title, youtube_id: youtubeId, category, is_featured: isFeatured };
+
+    // DB の CHECK 制約（videos_category_check）と照合して送出前に保証する。
+    // 空文字・null・未定義・未知の値はすべて "MV" にフォールバック。
+    const safeCategory: VideoCategory =
+      (VIDEO_CATEGORIES as readonly string[]).includes(category) ? category : "MV";
+
+    const payload = { title, youtube_id: youtubeId, category: safeCategory, is_featured: isFeatured };
     const res = editingId === "new"
       ? await supabase.from("videos").insert([payload])
       : await supabase.from("videos").update(payload).eq("id", editingId);
