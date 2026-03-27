@@ -652,7 +652,7 @@ export default function ClientPage({ siteSettings, news, discography, goods, vid
             <div className="flex gap-4">
               <Link href={`/${lang}/terms`} className="hover:text-pink-400 transition-colors">{dict.footer.terms}</Link>
               <Link href={`/${lang}/privacy`} className="hover:text-pink-400 transition-colors">{dict.footer.privacy}</Link>
-              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.company}</a>
+              <a href="https://flapinc.jp/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition-colors">{dict.footer.company}</a>
             </div>
             <p>{dict.footer.copyright}</p>
           </div>
