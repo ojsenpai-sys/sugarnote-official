@@ -8,8 +8,9 @@ import { ChevronLeft, Calendar, Tag, Music, Star, Twitter, Instagram, Youtube } 
 import Image from "next/image";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
-// Revalidate data every 60 seconds
-export const revalidate = 60;
+// SSG を完全に無効化し、常にリクエスト時にレンダリングする。
+// ビルド時に Supabase へ接続して失敗するリスクを排除。
+export const dynamic = "force-dynamic";
 
 export default async function InformationDetailPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
   const { lang, id } = await params;
@@ -155,9 +156,9 @@ export default async function InformationDetailPage({ params }: { params: Promis
           
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
             <div className="flex gap-4">
-              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.privacy}</a>
-              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.terms}</a>
-              <a href="#" className="hover:text-pink-400 transition-colors">{dict.footer.company}</a>
+              <Link href={`/${lang}/terms`} className="hover:text-pink-400 transition-colors">{dict.footer.terms}</Link>
+              <Link href={`/${lang}/privacy`} className="hover:text-pink-400 transition-colors">{dict.footer.privacy}</Link>
+              <a href="https://flapinc.jp/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition-colors">{dict.footer.company}</a>
             </div>
             <p>{dict.footer.copyright}</p>
           </div>
