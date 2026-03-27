@@ -1,6 +1,10 @@
 import type { MetadataRoute } from "next";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
+// 常にリクエスト時に生成（ビルド時キャッシュを使わない）。
+// 旧プロジェクト ID (twkwdgqgkzxlmvcqtrto) の fetch-cache 汚染を防ぐ。
+export const dynamic = "force-dynamic";
+
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://sugarnote.jp";
 
