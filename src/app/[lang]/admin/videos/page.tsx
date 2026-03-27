@@ -51,10 +51,13 @@ export default function VideosAdmin() {
     e.preventDefault();
     setSaving(true);
 
-    // DB の CHECK 制約（videos_category_check）と照合して送出前に保証する。
-    // 空文字・null・未定義・未知の値はすべて "MV" にフォールバック。
+    // DB CHECK 制約 videos_category_check に確実に適合させる最終防衛ライン。
+    // state の型に関係なく、空文字 / null / undefined / 未知値はすべて弾く。
+    const rawCategory = String(category ?? "").trim().toUpperCase();
     const safeCategory: VideoCategory =
-      (VIDEO_CATEGORIES as readonly string[]).includes(category) ? category : "MV";
+      (VIDEO_CATEGORIES as readonly string[]).includes(rawCategory)
+        ? (rawCategory as VideoCategory)
+        : "MV";
 
     const payload = { title, youtube_id: youtubeId, category: safeCategory, is_featured: isFeatured };
     const res = editingId === "new"
