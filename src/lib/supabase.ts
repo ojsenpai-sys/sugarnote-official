@@ -1,33 +1,39 @@
 /**
  * supabase.ts — 環境変数の検証と定数エクスポート
- * ビルド・起動を止めず、空でもフォールバックで動作させる。
+ * 不整合があれば即座に throw して検知する。
  */
 
 const EXPECTED_PROJECT_REF = "vlxniazuvgdxymczlfgf";
-const FALLBACK_URL = `https://${EXPECTED_PROJECT_REF}.supabase.co`;
-const FALLBACK_KEY = "fallback-key-check-vercel-env";
 
 function resolveEnv(key: string): string {
   const value = process.env[key];
 
   if (!value) {
-    console.error(
+    const msg =
       `[supabase] ❌ 環境変数 ${key} が未定義です。\n` +
       `  Vercel Dashboard → Settings → Environment Variables を確認してください。\n` +
-      `  期待するプロジェクト: ${EXPECTED_PROJECT_REF}`
-    );
-    return key === "NEXT_PUBLIC_SUPABASE_URL" ? FALLBACK_URL : FALLBACK_KEY;
+      `  期待するプロジェクト: ${EXPECTED_PROJECT_REF}`;
+    if (typeof window === "undefined") {
+      throw new Error(msg);
+    }
+    console.error(msg);
+    return key === "NEXT_PUBLIC_SUPABASE_URL"
+      ? `https://${EXPECTED_PROJECT_REF}.supabase.co`
+      : "invalid-key-check-vercel-env";
   }
 
   if (key === "NEXT_PUBLIC_SUPABASE_URL") {
     const ref = value.replace("https://", "").split(".")[0];
     if (ref !== EXPECTED_PROJECT_REF) {
-      console.error(
+      const msg =
         `[supabase] ⚠️  プロジェクト ID 不一致\n` +
         `  ${key} の ref: ${ref}\n` +
         `  期待値: ${EXPECTED_PROJECT_REF}\n` +
-        `  → Vercel の環境変数を更新してください`
-      );
+        `  → Vercel の環境変数を更新してください`;
+      if (typeof window === "undefined") {
+        throw new Error(msg);
+      }
+      console.error(msg);
     }
   }
 
